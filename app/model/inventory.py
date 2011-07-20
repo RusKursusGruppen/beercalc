@@ -4,6 +4,7 @@ u""
 from uuid import uuid4
 from datetime import datetime
 from email.utils import parsedate, formatdate
+import app.utils.date as dateutils
 
 class Inventory(object):
     def __init__(self, products=None):
@@ -62,6 +63,7 @@ class Product(object):
 
     def sell(self, sold_individual, sold_total):
         sell_value = sold_individual * (self.total_purchase() - self.stock * self.get_base_unit_price() - self.income) / sold_total
+
         self.income += sell_value
         return sell_value
     
@@ -90,36 +92,20 @@ class Product(object):
 
     
 class Purchase(object):
-    def __init__(self, name=u"", price=0, quantity=0):
+    def __init__(self, name=u"", price=0, quantity=0, date=None):
         self.name = name
         self.price = price
         self.quantity = quantity
+        self.date = date or dateutils.now()
     
     def export(self):
         return {
             "name": self.name,
+            "date": dateutils.totuple(self.date),
             "price": self.price,
             "quantity": self.quantity,
         }
     
     @staticmethod
     def create(data):
-        return Purchase(data["name"], data["price"], data["quantity"])
-
-inventory = Inventory()
-product = Product(u"Guldøl")
-purchase = Purchase(u"Guld Tuborg", 200.00, 60)
-inventory.add_product(product)
-product.add_purchase(purchase)
-
-product.update_stock(40)
-print product.get_value_diff(18)
-print product.get_base_unit_price()
-print product.sell(1,18)
-
-
-
-import pprint
-
-pprint.pprint(inventory.export() == Inventory.create(inventory.export()).export())
-pprint.pprint(inventory.export())
+        return Purchase(data["name"], data["price"], data["quantity"], dateutils.fromtuple(data["date"]))

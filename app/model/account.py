@@ -2,8 +2,7 @@
 u""
 
 from uuid import uuid4
-from datetime import datetime
-from email.utils import parsedate, formatdate
+import app.utils.date as dateutils
 
 class Accounts(object):
     def __init__(self, accounts=None):
@@ -77,38 +76,38 @@ class Transaction(object):
     def __init__(self, id_=None, description=u"", date=None, amount=0):
         self.id = id_ or unicode(uuid4().hex)
         self.description = description
-        self.date = date or datetime.now()
+        self.date = date or dateutils.now()
         self.amount = amount
         
     def export(self):
         return {
             "id": self.id,
             "description": self.description,
-            "date": formatdate(float(self.date.strftime('%s')), localtime=False, usegmt=True),
+            "date": dateutils.totuple(date),
             "amount": self.amount
         }
 
     @staticmethod
     def create(data):
-        return Transaction(data["id"], data["description"], parsedate(data["date"]), data["amount"])
+        return Transaction(data["id"], data["description"], dateutils.fromtuple(data["date"]), data["amount"])
 
 
-accounts = Accounts()
-import random
-for i in range(10,30):
-    account = Account(name=unicode(uuid4().hex))
-    for i in range(3,9):
-        account.add_transaction(u"Transaction " + unicode(i), random.randint(-9000,9000))
-    accounts.add_account(account)
-
-import json
-import pprint
-
-accounts_exported = accounts.export()
-accounts_created = Accounts.create(accounts_exported)
-
-for x in accounts, accounts_created:
-    print "-"*50
-    pprint.pprint( x.list_by_name())
-
-pprint.pprint(Accounts.create(accounts.export()).list_creditors_by_name())
+#accounts = Accounts()
+#import random
+#for i in range(10,30):
+#    account = Account(name=unicode(uuid4().hex))
+#    for i in range(3,9):
+#        account.add_transaction(u"Transaction " + unicode(i), random.randint(-9000,9000))
+#    accounts.add_account(account)
+#
+#import json
+#import pprint
+#
+#accounts_exported = accounts.export()
+#accounts_created = Accounts.create(accounts_exported)
+#
+#for x in accounts, accounts_created:
+#    print "-"*50
+#    pprint.pprint( x.list_by_name())
+#
+#pprint.pprint(Accounts.create(accounts.export()).list_creditors_by_name())
