@@ -5,7 +5,6 @@ from uuid import uuid4
 from datetime import datetime
 from email.utils import parsedate, formatdate
 
-
 class Accounts(object):
     def __init__(self, accounts=None):
         self.accounts = accounts or dict()
@@ -23,6 +22,12 @@ class Accounts(object):
         ret = self.accounts.values()
         ret.sort(key=lambda x: x.name)
         return ret
+    
+    def list_debtors_by_name(self):
+        return filter(lambda x: x.get_balance() > 0, self.list_by_name())
+    
+    def list_creditors_by_name(self):
+        return filter(lambda x: x.get_balance() < 0, self.list_by_name())
     
     def export(self):
         return [a.export() for a in self.accounts.values()]
@@ -93,7 +98,7 @@ import random
 for i in range(10,30):
     account = Account(name=unicode(uuid4().hex))
     for i in range(3,9):
-        account.add_transaction(u"Transaction " + unicode(i), random.randint(5000,9000))
+        account.add_transaction(u"Transaction " + unicode(i), random.randint(-9000,9000))
     accounts.add_account(account)
 
 import json
@@ -106,4 +111,4 @@ for x in accounts, accounts_created:
     print "-"*50
     pprint.pprint( x.list_by_name())
 
-#pprint.pprint(Accounts.create(accounts.export()).list_by_name())
+pprint.pprint(Accounts.create(accounts.export()).list_creditors_by_name())
