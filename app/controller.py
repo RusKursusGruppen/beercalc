@@ -32,10 +32,12 @@ def run():
         usage.update(account.id, product1.id, randint(4,12))
         usage.update(account.id, product2.id, randint(4,12))
     
+    usage.commit()
+
     export1 = document.export()
     export2 = Document.create(export1).export()
 
-    document.save("savedir/beer.save")
+    document.save("savedir/save.beer")
     
 
 

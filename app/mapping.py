@@ -12,7 +12,7 @@ endpoints = {
 url_map = werkzeug.routing.Map()
 
 for method, path, endpoint in [
-        ("GET", "/accounts", "accounts.browse"),
+        ("GET", "/accounts", "account.browse"),
     ]:
     rule = werkzeug.routing.Rule(path, methods=[method], endpoint=endpoint)
     url_map.add(rule)

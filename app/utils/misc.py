@@ -36,7 +36,7 @@ def template_render(templatename, **kwargs):
     template = template_lookup.get_template(templatename)
     kwargs.update({
         "url_for": url_for,
-        "esc_attr": xml.sax.saxutils.quoteattr,
+        "escattr": xml.sax.saxutils.quoteattr,
         "escape": xml.sax.saxutils.escape,
         "json": json.dumps,
         "endpoint": local.endpoint,

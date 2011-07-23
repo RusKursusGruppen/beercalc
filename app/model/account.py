@@ -83,7 +83,7 @@ class Transaction(object):
         return {
             "id": self.id,
             "description": self.description,
-            "date": dateutils.totuple(date),
+            "date": dateutils.totuple(self.date),
             "amount": self.amount
         }
 
