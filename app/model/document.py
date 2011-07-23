@@ -1,61 +1,84 @@
 # -*- coding: utf-8 -*-
 u""
-import app.utils.date as dateutils
-import app.model.usage
 import json
 import shutil
 import os.path as path
 
-class Document(object)
-    def __init__(self, usage=None, datesaved=None, savecomment=None, filepath=None):
-        self.date = datesaved
-        self.comment = savecomment
-        self.usage = usage or app.model.usage.Usage()
-        self.formatversion = version
+import app.utils.date as dateutils
+from app.model.usage import Usage
+from app.model.account import Accounts
+from app.model.inventory import Inventory
 
-    def save(data, savedir, comment = u""):
-        self.date = dateutils.totuple(dateutils.now())
+class Document(object):
+    def __init__(self, usage=None, accounts=None, inventory=None, date=None, comment=None, filepath=None, version=1):
+        self.date = date
         self.comment = comment
-        self.formatversion = 1
-        
-        currentpath = path.join(savedir, "save.beer")
+
+        self.inventory = inventory or Inventory()
+        self.accounts = accounts or Accounts()
+        self.usage = usage or Usage(self.inventory, self.accounts)
+        self.version = version
+
+    def save(self, filepath, comment = u""):
+        self.date = dateutils.now()
+        self.comment = comment
         
         try:
-            current = load(savedir)
+            current = Document.load(filepath)
         except IOError:
             pass
         else:
-            date = dateutils.fromtuple(current["date"])
-            dateformatted = date.astimezone(dateutils.utc).strftime("%Y.%m.%d.%H.%M.%S")
-            shutil.move(currentpath, currentpath + "." + dateformatted)
+            dateformatted = current.date.astimezone(dateutils.utc).strftime("%Y.%m.%d.%H.%M.%S")
+            shutil.move(filepath, filepath + "." + dateformatted)
         
-        with open(currentpath, "w") as f:
-            json.dump(data, f)
+        with open(filepath, "w") as f:
+            json.dump(self.export(), f)
         
-
-    def load(savedir, filename="save.beer"):
-        filepath = path.join(savedir, filename)
-        
-        with open(filepath, "r") as f:
-            return json.load(f)
-    
     def export(self):
+        date = None
+        if self.date is not None:
+            date = dateutils.totuple(self.date)
+        
         return {
-            "formatversion": self.formatversion,
+            "version": self.version,
             "comment": self.comment,
-            "date": self.date,
-            "usage": self.data.export()
+            "date": date,
+            "usage": self.usage.export(),
+            "accounts": self.accounts.export(),
+            "inventory": self.inventory.export()
         }
 
     @staticmethod
-    def create(data):
-        version = data["formatversion"]
+    def load(filepath):
+        with open(filepath, "r") as f:
+            return Document.create(json.load(f))
+
+    @staticmethod
+    def create(data, filepath = None):
+        version = data["version"]
         
         if version == 1:
-            return Document(
-        else:
-            raise VersionError("Unknown version: " %(repr(version),))
+            inventory = Inventory.create(data["inventory"])
+            accounts = Accounts.create(data["accounts"])
+            usage = Usage.create(data["usage"], inventory, accounts)
+            comment = data["comment"]
+            
+            date = data["date"]
+            if date is not None:
+                date = dateutils.fromtuple(date)
 
-        
+        else:
+            raise VersionError("Unknown document version: " %(repr(version),))
+
+        return Document(
+            usage = usage,
+            accounts = accounts,
+            inventory = inventory,
+            date = date,
+            comment = comment,
+            filepath = filepath,
+            version = version
+        )
+
         
 

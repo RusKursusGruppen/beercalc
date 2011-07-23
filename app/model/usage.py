@@ -4,6 +4,7 @@ from account import Accounts, Account
 from inventory import Inventory, Product, Purchase
 from collections import defaultdict
 
+
 class Usage(object):
     def __init__(self, inventory, accounts):
         self.inventory = inventory
@@ -28,8 +29,6 @@ class Usage(object):
     
     def export(self):
         return {
-            "accounts": self.accounts.export(),
-            "inventory": self.inventory.export(),
             "counter": [
                 {
                     "account_id": account.id,
@@ -42,9 +41,7 @@ class Usage(object):
 
 
     @staticmethod
-    def create(data):
-        inventory = Inventory.create(data["inventory"])
-        accounts = Accounts.create(data["accounts"])
+    def create(data, inventory, accounts):
         usage = Usage(inventory, accounts)
         for c in data["counter"]:
             usage.update(c["account_id"], c["product_id"], c["count"])
