@@ -1,5 +1,7 @@
 <%inherit file="/main.mako"/>
-
+<%!
+from app.utils.misc import formatcurrency
+%>
 <h1>Konti</h1>
 
 <h3>Debitorer</h3>
@@ -14,7 +16,7 @@
 %for id, name, balance in debtors:
         <tr>
             <td><a href=${escattr(url_for("account.edit", id=id))}>${escape(name)}</td>
-            <td>${balance} kr.</td>
+            <td>${escape(formatcurrency(balance))}</td>
         </tr>
 %endfor
     </tbody>
@@ -32,7 +34,7 @@
 %for id, name, balance in creditors:
         <tr>
             <td><a href=${escattr(url_for("account.edit", id=id))}>${escape(name)}</td>
-            <td>${balance} kr.</td>
+            <td>${escape(formatcurrency(balance))}</td>
         </tr>
 %endfor
     </tbody>
