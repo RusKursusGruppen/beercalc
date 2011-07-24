@@ -1,7 +1,4 @@
 <%inherit file="/main.mako"/>
-<%!
-import pprint
-%>
 
 <h1>Konti</h1>
 
