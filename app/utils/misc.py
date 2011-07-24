@@ -26,7 +26,7 @@ template_lookup = mako.lookup.TemplateLookup(
     strict_undefined=True
 )
 
-def url_for(endpoint, method=None, _external=False, **values):
+def urlfor(endpoint, method=None, _external=False, **values):
     return local.url_adapter.build(endpoint, values, method=method, force_external=_external)
 
 def template_response(templatename, **kwargs):
@@ -36,7 +36,7 @@ def template_response(templatename, **kwargs):
 def template_render(templatename, **kwargs):
     template = template_lookup.get_template(templatename)
     kwargs.update({
-        "url_for": url_for,
+        "urlfor": urlfor,
         "escattr": xml.sax.saxutils.quoteattr,
         "escape": xml.sax.saxutils.escape,
         "json": json.dumps,

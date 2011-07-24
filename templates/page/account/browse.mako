@@ -13,7 +13,7 @@ from app.utils.misc import formatcurrency
     <tbody>
 %for id, name, balance in accounts:
         <tr>
-            <td><a href=${escattr(url_for("account.edit", id=id))}>${escape(name)}</td>
+            <td><a href=${escattr(urlfor("account.edit", id=id))}>${escape(name)}</td>
             <td style="text-align:right;">${escape(formatcurrency(balance))}</td>
         </tr>
 %endfor

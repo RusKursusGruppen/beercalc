@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from app.utils.misc import template_response, local, url_for, redirect
+from app.utils.misc import template_response, local, urlfor, redirect
 
 from app.document import accounts
 def browse():
