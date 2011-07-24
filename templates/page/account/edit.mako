@@ -6,7 +6,7 @@ from app.utils.misc import formatcurrency
 
 <%
 runningsum = 0
-email_val = escattr(u"mailto" + email)
+email_val = escattr(u"mailto:" + email)
 email_str = escape(email)
 balance_str = escape(formatcurrency(balance))
 %>
