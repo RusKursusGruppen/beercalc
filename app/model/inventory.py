@@ -53,7 +53,7 @@ class Product(object):
         return self.total_purchase() / sum(x.quantity for x in self.purchases)
     
     def get_stock_diff(self, sold_total):
-        return sum(x.quantity for x in self.purchases) - self.stock - sold_total
+        return sum(p.quantity for p in self.purchases) - self.stock - sold_total
     
     def get_value_diff(self, sold_total):
         return self.get_base_unit_price() * self.get_stock_diff(sold_total)

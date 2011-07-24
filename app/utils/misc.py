@@ -22,7 +22,8 @@ application = local("application")
 template_lookup = mako.lookup.TemplateLookup(
     directories=[path["templates"]],
     input_encoding="utf-8",
-    output_encoding="utf-8"
+    output_encoding="utf-8",
+    strict_undefined=True
 )
 
 def url_for(endpoint, method=None, _external=False, **values):
@@ -49,9 +50,13 @@ def redirect(endpoint, *args, **kwargs):
     local.response = werkzeug.utils.redirect(url_for(endpoint, *args, **kwargs))
 
 def formatcurrency(integer):
+    prefix = u""
+    if integer < 0:
+        integer = abs(integer)
+        prefix = u"-"
+
     fraction = unicode(integer % 100)
     integer = unicode(integer // 100)
-    
 
     # Add thousands seperator
     integer = integer[::-1]
@@ -61,4 +66,4 @@ def formatcurrency(integer):
     # Zero pad 
     fraction = (u"0" + fraction)[-2:]
     
-    return integer + u"," + fraction + u" kr."
+    return prefix + integer + u"," + fraction + u" kr."

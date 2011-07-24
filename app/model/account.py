@@ -22,12 +22,6 @@ class Accounts(object):
         ret.sort(key=lambda x: x.name)
         return ret
     
-    def list_debtors_by_name(self):
-        return filter(lambda x: x.get_balance() > 0, self.list_by_name())
-    
-    def list_creditors_by_name(self):
-        return filter(lambda x: x.get_balance() < 0, self.list_by_name())
-    
     def export(self):
         return [a.export() for a in self.accounts.values()]
     

@@ -3,11 +3,9 @@ from app.utils.misc import template_response, local, url_for, redirect
 
 from app.document import accounts
 def browse():
-    debtors = ((a.id, a.name, a.get_balance()) for a in accounts.list_debtors_by_name())
-    creditors = ((a.id, a.name, a.get_balance()) for a in accounts.list_creditors_by_name())
+    accounts_iter = ((a.id, a.name, a.get_balance()) for a in accounts.list_by_name())
     template_response("/page/account/browse.mako",
-        debtors = debtors,
-        creditors = creditors
+        accounts = accounts_iter,
     )
 
 def edit(id):
@@ -15,8 +13,9 @@ def edit(id):
     transactions = account.transactions
     
     transactions = ((t.date, t.description, t.amount)  for t in transactions)
-
     template_response("/page/account/edit.mako",
+        balance = account.get_balance(),
+        email = account.email,
         name = account.name,
         transactions = transactions
     )
