@@ -3,6 +3,9 @@
 from app.utils.misc import formatcurrency
 %>
 <h1>Konti</h1>
+<p>
+    <a href=${escattr(urlfor("account.create_form"))}>Klik her for at oprette en konto</a>
+</p>
 <table>
     <thead>
         <tr>

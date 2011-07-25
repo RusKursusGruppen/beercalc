@@ -21,8 +21,5 @@ def edit(id):
     )
 
 def create_form():
-    account_list = ((x.id, x.name,x.get_balance()) for x in accounts.list_by_name())
-    template_response("/page/account/browse.mako",
-        account_list = account_list
-    )
+    template_response("/page/account/create.mako")
 
