@@ -33,8 +33,8 @@ product2.add_purchase(Purchase(u"Hindbærbrus", 27000, 60))
 product2.add_purchase(Purchase(u"Cola", 27000, 60))
 inventory.add_product(product2)
 
-product1.update_stock(0)
-product2.update_stock(0)
+product1.stock = 0
+product2.stock = 0
 
 for account in accounts.list_by_name():
     usage.update(account.id, product1.id, randint(4,12))

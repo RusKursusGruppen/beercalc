@@ -1,10 +1,7 @@
 # -*- coding: utf-8 -*-
-u""
-
 from uuid import uuid4
-from datetime import datetime
-from email.utils import parsedate, formatdate
 import app.utils.date as dateutils
+from app.model.account import Account
 
 class Inventory(object):
     def __init__(self, products=None):
@@ -31,65 +28,55 @@ class Inventory(object):
             ret.add_product(Product.create(p))
         return ret
 
-
 class Product(object):
-    def __init__(self, name=u"", stock=0, income=0, id_=None, purchases=None):
+    def __init__(self, name=u"", stock=0, income=None, id_=None, purchases=None):
         self.purchases = purchases or []
         self.name = name
         self.stock = stock
-        self.income = income
+        self.income = income or Account()
         self.id = id_ or unicode(uuid4().hex)
     
     def add_purchase(self, purchase):
         self.purchases.append(purchase)
-    
+
     def total_purchase(self):
         return sum(x.price for x in self.purchases)
     
-    def update_stock(self, count):
-        self.stock = count
+    def total_quantity(self):
+        return sum(x.quantity for x in self.purchases)
+    
+    def value_left(self):
+        return (self.total_purchase() * self.stock) / self.total_quantity()
 
-    def get_base_unit_price(self):
-        return self.total_purchase() / sum(x.quantity for x in self.purchases)
+    def get_price(self, sold_individual, sold_total):
+        missing_income = self.total_purchase() - self.income.get_balance() - self.value_left()
+        return (sold_individual * missing_income) / sold_total
     
-    def get_stock_diff(self, sold_total):
-        return sum(p.quantity for p in self.purchases) - self.stock - sold_total
-    
-    def get_value_diff(self, sold_total):
-        return self.get_base_unit_price() * self.get_stock_diff(sold_total)
-    
-    def add_income(self, amount):
-        self.income += amount
-
-    def sell(self, sold_individual, sold_total):
-        sell_value = sold_individual * (self.total_purchase() - self.stock * self.get_base_unit_price() - self.income) / sold_total
-
-        self.income += sell_value
-        return sell_value
-    
-    def sell_fixed(self, count=0, price=None):
+    def get_fixedprice(self, count=0, price=None):
         if price is None:
-            price = self.get_base_unit_price()
-
-        self.add_income(price * count)
+            return (self.total_purchase() * count) / self.get_quantity()
+        else:
+            return count * price
     
     def export(self):
         return {
             "id": self.id,
             "name": self.name,
             "stock": self.stock,
-            "income": self.income,
+            "income": self.income.export(),
             "purchases": [p.export() for p in self.purchases]
         }
     
     @staticmethod
     def create(data):
         purchases = []
-        for p in data["purchases"]:
-            purchases.append(Purchase.create(p))
-        return Product(data["name"], data["stock"], data["income"], data["id"], purchases)
-    
-
+        return Product(
+            name = data["name"],
+            stock = data["stock"],
+            income = Account.create(data["income"]),
+            id_ = data["id"],
+            purchases = [Purchase.create(p) for p in data["purchases"]]
+        )
     
 class Purchase(object):
     def __init__(self, name=u"", price=0, quantity=0, date=None):
