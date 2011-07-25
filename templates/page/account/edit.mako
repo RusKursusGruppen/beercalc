@@ -21,7 +21,7 @@ balance_str = escape(formatcurrency(balance))
 <table>
     <thead>
         <tr>
-            <th>Dato</th>
+            <th>Tidspunkt</th>
             <th>Beskrivelse</th>
             <th>Ændring</th>
             <th>Saldo</th>
@@ -30,14 +30,15 @@ balance_str = escape(formatcurrency(balance))
     <tbody>
 %for date, description, amount in transactions:
 <%
-    date = escape(dateutils.formatdelta(date-dateutils.now()))
+    date_delta = escape(dateutils.formatdelta(date-dateutils.now()))
+    date_str = escattr(date.strftime("%d/%m-%Y %H:%M:%S"))
     description = escape(description)
     amount_str = escape(formatcurrency(amount))
     runningsum += amount
     runningsum_str = escape(formatcurrency(runningsum))
 %>
         <tr>
-            <td>${date}</td>
+            <td title=${date_str}>${date_delta}</td>
             <td>${description}</td>
             <td style="text-align:right;">${amount_str}</td>
             <td style="text-align:right;">${runningsum_str}</td>
