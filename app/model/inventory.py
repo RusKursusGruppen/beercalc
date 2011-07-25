@@ -54,7 +54,7 @@ class Product(object):
     
     def get_fixedprice(self, count=0, price=None):
         if price is None:
-            return (self.total_purchase() * count) / self.get_quantity()
+            return (self.total_purchase() * count) / self.total_quantity()
         else:
             return count * price
     
