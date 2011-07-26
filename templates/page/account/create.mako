@@ -1,7 +1,7 @@
 <%inherit file="/main.mako"/>
 <h1>Opret konto</h1>
 
-<form action="" method="post">
+<form action=${escattr(urlfor("account.create_do"))} method="post">
 <table>
     <tr>
         <td><label for="name">Navn</label></td>

@@ -11,11 +11,53 @@ email_str = escape(email)
 balance_str = escape(formatcurrency(balance))
 %>
 
-%if len(email) == 0:
-    <h1>${name}</h1>
+<h1>
+%if len(name) != 0:
+    ${escape(name)}
 %else:
-    <h1>${name} (<a href=${email_val}>${email_str}</a>)</h1>
+    [Tomt Navn]
 %endif
+%if len(email) != 0:
+    (<a href=${email_val}>${email_str}</a>)</h1>
+%endif
+</h1>
+<form method="post" action=${escattr(urlfor("account.edit_do", id=id))}>
+<table>
+    <tr>
+        <td>
+            <label for="name">Navn:</label>
+        </td>
+        <td>
+            <input name="name" id="name" value=${escattr(name)} />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label for="email">E-mail:</label>
+        </td>
+        <td>
+            <input name="email" id="email" value=${escattr(email)} />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label for="istutor">Er rusvejleder:</label>
+        </td>
+        <td>
+%if istutor:
+            <input type="checkbox" checked="checked" name="istutor" />
+%else:
+            <input type="checkbox" name="istutor" />
+%endif
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <input type="submit" value="Gem" />
+        </td>
+    </tr>
+</table>
+</form>
 
 <h3>Transaktioner</h3>
 <table>
