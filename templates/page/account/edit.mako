@@ -1,6 +1,6 @@
 <%!
 import app.utils.date as dateutils
-from app.utils.misc import formatcurrency
+from app.utils.currency import formatcurrency
 %>
 <%inherit file="/main.mako"/>
 
@@ -94,7 +94,7 @@ balance_str = escape(formatcurrency(balance))
 </table>
 
 <h3>Indfør betaling/retur af penge</h3>
-<form action="" method="post">
+<form action=${escattr(urlfor("account.payment", id=id))} method="post">
     <label for="amount">Indtast beløb:</label>
     <input type="text" name="amount" id="amount" />
     <input type="submit" value="Indfør" />

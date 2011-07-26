@@ -1,6 +1,6 @@
 <%inherit file="/main.mako"/>
 <%!
-from app.utils.misc import formatcurrency
+from app.utils.currency import formatcurrency
 %>
 <h1>Konti</h1>
 <p>

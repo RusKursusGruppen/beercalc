@@ -2,7 +2,7 @@
 from app.utils.misc import template_response, local, urlfor, redirect
 
 from app.model.account import Account
-
+from app.utils.currency import parsenumber
 
 from app.document import accounts, document
 def browse():
@@ -55,3 +55,23 @@ def create_do():
     document.save(u'Oprettede kontoen "%s"' % (name,))
     redirect("account.browse")
 
+def payment(id):
+    def fail(msg=u""):
+        return redirect("account.edit", id=id)
+
+    amount = local.request.form.get("amount")
+    amount = amount and parsenumber(amount)
+
+    if amount == None:
+        return fail()
+
+    account = accounts.get_account(id)
+    
+    if amount < 0:
+        account.add_transaction(u"Udbetaling", amount)
+    else:
+        account.add_transaction(u"Indbetaling", amount)
+        
+    document.save(u'Ind-/udbetaling på konto "%s"' % (account.name,))
+    return redirect("account.edit", id=id)
+    template_response("/page/test.mako", test=amount)
