@@ -17,7 +17,6 @@ def import_form():
     template_response("/page/account/import_form.mako")
 
 def import_do():
-    russer = []
     r = re.compile('(.*?)(\S+@\S+)(.*)', re.UNICODE)
 
     for l in local.request.form.get("data", u"").split("\n"):
