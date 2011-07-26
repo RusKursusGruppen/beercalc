@@ -6,11 +6,11 @@ import os.path as path
 
 import app.utils.date as dateutils
 from app.model.usage import Usage
-from app.model.account import Accounts
+from app.model.account import Accounts, Account
 from app.model.inventory import Inventory
 
 class Document(object):
-    def __init__(self, usage=None, accounts=None, inventory=None, date=None, comment=None, filepath=None, version=1):
+    def __init__(self, usage=None, accounts=None, inventory=None, date=None, comment=None, filepath=None, version=1, cash_in_hand=None):
         self.date = date
         self.comment = comment
 
@@ -18,6 +18,7 @@ class Document(object):
         self.accounts = accounts or Accounts()
         self.usage = usage or Usage(self.inventory, self.accounts)
         self.version = version
+        self.cash_in_hand = cash_in_hand or Account()
         self.filepath = filepath
 
     def save(self, comment = u"", filepath=None):
@@ -51,7 +52,8 @@ class Document(object):
             "date": date,
             "usage": self.usage.export(),
             "accounts": self.accounts.export(),
-            "inventory": self.inventory.export()
+            "inventory": self.inventory.export(),
+            "cash_in_hand": self.cash_in_hand.export()
         }
 
     @staticmethod
@@ -68,7 +70,7 @@ class Document(object):
             accounts = Accounts.create(data["accounts"])
             usage = Usage.create(data["usage"], inventory, accounts)
             comment = data["comment"]
-            
+            cash_in_hand = Account.create(data["cash_in_hand"])
             date = data["date"]
             if date is not None:
                 date = dateutils.fromtuple(date)
@@ -83,7 +85,8 @@ class Document(object):
             date = date,
             comment = comment,
             filepath = filepath,
-            version = version
+            version = version,
+            cash_in_hand = cash_in_hand
         )
 
         

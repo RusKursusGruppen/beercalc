@@ -1,9 +1,11 @@
 <%inherit file="/html5.mako"/>
 <%!
     navbar_links = (
+        ("index.index", u"Forside/status"),
         ("account.browse", u"Konti"),
         ("usage.new_form", u"Ny afregning"),
         ("product.browse", u"Produkter"),
+        ("misc.cashlog", u"Kasse"),
     )
 %>
 <head>

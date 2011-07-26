@@ -90,9 +90,12 @@ def payment(id):
     
     if amount < 0:
         account.add_transaction(u"Udbetaling", amount)
+        document.cash_in_hand.add_transaction(u'Udbetaling "%s"' % (account.name,), amount)
     else:
         account.add_transaction(u"Indbetaling", amount)
-        
+        document.cash_in_hand.add_transaction(u'Indbetaling "%s"' % (account.name,), amount)
+    
+
     document.save(u'Ind-/udbetaling på konto "%s"' % (account.name,))
     return redirect("account.edit", id=id)
     template_response("/page/test.mako", test=amount)

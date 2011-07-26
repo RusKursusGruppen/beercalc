@@ -4,8 +4,12 @@ import werkzeug.routing
 import app.controllers.account
 import app.controllers.usage
 import app.controllers.product
+import app.controllers.index
+import app.controllers.misc
 
 endpoints = {
+    "index.index": app.controllers.index.index,
+    "misc.cashlog": app.controllers.misc.cashlog,
     "account.create_form": app.controllers.account.create_form,
     "account.create_do": app.controllers.account.create_do,
     "account.browse": app.controllers.account.browse,
@@ -32,6 +36,8 @@ endpoints = {
 url_map = werkzeug.routing.Map()
 
 for method, path, endpoint in [
+        ("GET", "/", "index.index"),
+        ("GET", "/cash_log", "misc.cashlog"),
         ("GET", "/accounts", "account.browse"),
         ("GET", "/accounts/import", "account.import"),
         ("POST", "/accounts/import", "account.import_do"),
