@@ -45,4 +45,4 @@ usage.commit()
 export1 = document.export()
 export2 = Document.create(export1).export()
 
-document.save("savedir/save.beer")
+document.save(filepath="savedir/save.beer")
