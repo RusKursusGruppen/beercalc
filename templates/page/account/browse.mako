@@ -3,9 +3,10 @@
 from app.utils.currency import formatcurrency
 %>
 <h1>Konti</h1>
-<p>
-    <a href=${escattr(urlfor("account.create_form"))}>Klik her for at oprette en konto</a>
-</p>
+<ul>
+    <li><a href=${escattr(urlfor("account.create_form"))}>Ny konto</a></li>
+    <li><a href=${escattr(urlfor("account.import"))}>Importer konti</a></li>
+</ul>
 <table>
     <thead>
         <tr>

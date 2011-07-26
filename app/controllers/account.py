@@ -2,6 +2,8 @@
 from app.utils.misc import template_response, local, urlfor, redirect
 
 from app.model.account import Account
+
+import re
 from app.utils.currency import parsenumber
 
 from app.document import accounts, document
@@ -10,6 +12,25 @@ def browse():
     template_response("/page/account/browse.mako",
         accounts = accounts_iter,
     )
+
+def import_form():
+    template_response("/page/account/import_form.mako")
+
+def import_do():
+    r = re.compile('(.*?)(\S+@\S+)(.*)', re.UNICODE)
+
+    for l in local.request.form.get("data", u"").split("\n"):
+        m = r.match(l.strip())
+        email = m.group(2)
+        name = ("%s %s" % (m.group(1).strip(), m.group(3).strip())).strip()
+        if accounts.exists(name, email):
+            continue
+        account = Account(name=name, email=email)
+        accounts.add_account(account)
+
+    document.save("Kontoimport")
+    redirect("account.browse")
+
 
 def edit(id):
     account = accounts.get_account(id)
