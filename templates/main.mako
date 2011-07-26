@@ -14,14 +14,16 @@
 <div id="header">${escape(repr(endpoint))}</div>
 <div id="page" class="yui3-g">
 
-<div class="yui3-u-1-5">
-    <ul>
+<div class="yui3-u-1-5" id="nav_container">
+    <ul id="nav">
 %for target, text in navbar_links:
         <li><a href=${escattr(urlfor(target))}>${escape(text)}</a></li>
 %endfor
     </ul>
 </div>
 <div class="yui3-u-4-5">
+<div id="content">
     ${next.body()}
+</div>
 </div>
 </body>

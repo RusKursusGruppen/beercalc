@@ -60,7 +60,7 @@ balance_str = escape(formatcurrency(balance))
 </form>
 
 <h3>Transaktioner</h3>
-<table>
+<table style="width:100%;">
     <thead>
         <tr>
             <th>Tidspunkt</th>
