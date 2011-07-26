@@ -26,6 +26,7 @@ from app.utils.currency import formatcurrency
 %else:
             <td>${escape(formatcurrency(fixedprice))}</td>
 %endif
+            <td><a href=${escattr(urlfor("product.delete", product_id=id))}>[Slet]</a></td>
         </tr>
 %endfor
     </tbody>

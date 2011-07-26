@@ -38,7 +38,7 @@ from app.utils.currency import formatcurrency, formatnumber
         </tr>
     </thead>
     <tbody>
-%for pname, price, quantity, date in purchases:
+%for pname, price, quantity, date, purchase_id in purchases:
 <%
     date_delta = escape(dateutils.formatdelta(date-dateutils.now()))
     date_str = escattr(date.strftime("%d/%m-%Y %H:%M:%S"))
@@ -48,6 +48,7 @@ from app.utils.currency import formatcurrency, formatnumber
             <td>${escape(formatcurrency(price))}</td>
             <td>${str(quantity)}</td>
             <td title=${date_str}>${date_delta}</td>
+            <td><a href=${escattr(urlfor("product.purchase_delete", purchase_id = purchase_id, product_id = id))}>[Slet]</a>
         </tr>
 %endfor
     </tbody>
