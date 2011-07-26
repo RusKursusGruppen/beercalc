@@ -22,6 +22,7 @@ endpoints = {
     "product.purchase": app.controllers.product.purchase_form,
     "product.purchase_do": app.controllers.product.purchase_do,
     "product.create_form": app.controllers.product.create_form,
+    "product.create_do": app.controllers.product.create_do,
     "notfound": app.controllers.notfound,
     "error": app.controllers.error,
 }

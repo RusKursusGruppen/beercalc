@@ -2,6 +2,7 @@
 from app.utils.misc import template_response, local, urlfor, redirect
 
 from app.controllers import notfound
+from app.model.inventory import Product
 
 from app.document import inventory, document
 
@@ -36,20 +37,32 @@ def edit_do(product_id):
     else:
         fixedprice = int(fixedprice)
 
-    account = inventory.get_product(product_id)
+    product = inventory.get_product(product_id)
 
-    account.name = name
-    account.fixedprice = fixedprice
+    product.name = name
+    product.fixedprice = fixedprice
 
     document.save(u"Ændrede data for produkt '%s'" % (name,))
 
     redirect("product.edit", product_id=product_id)
 
 def create_form():
-    pass
+    template_response("/page/product/create.mako")
 
 def create_do():
-    pass
+    name = local.request.form.get("name", u"")
+    fixedprice = local.request.form.get("fixedprice", u"")
+    if len(fixedprice) == 0:
+        fixedprice = None
+    else:
+        fixedprice = int(fixedprice)
+
+    product = Product(name=name, fixedprice=fixedprice)
+    inventory.add_product(product)
+
+    document.save(u"Tilføjede produkt '%s'" % (product.name, ))
+
+    redirect("product.browse")
 
 def purchase_form():
     pass
