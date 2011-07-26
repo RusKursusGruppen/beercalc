@@ -5,7 +5,7 @@
 
 <h1>Ny optælling</h1>
 
-<form action="" method="post">
+<form action=${escattr(urlfor("usage.new_form_do"))} method="post">
     <h2>Varebeholdning</h2>
     <table>
         <thead>
