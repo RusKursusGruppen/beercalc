@@ -47,7 +47,7 @@ def template_render(templatename, **kwargs):
     return template.render(**kwargs).decode("utf-8")
 
 def redirect(endpoint, *args, **kwargs):
-    local.response = werkzeug.utils.redirect(url_for(endpoint, *args, **kwargs))
+    local.response = werkzeug.utils.redirect(urlfor(endpoint, *args, **kwargs))
 
 def formatcurrency(integer):
     prefix = u""
