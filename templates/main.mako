@@ -3,6 +3,7 @@
     navbar_links = (
         ("account.browse", u"Konti"),
         ("usage.new_form", u"Ny afregning"),
+        ("product.browse", u"Produkter"),
     )
 %>
 <head>
