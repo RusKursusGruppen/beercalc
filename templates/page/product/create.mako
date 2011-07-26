@@ -12,5 +12,6 @@
             <td><input type="text" name="fixedprice" id="fixedprice" />
         </tr>
     </table>
+    <p>Vejlederprisen udregnes automatisk hvis den udelades.</p>
     <input type="submit" name="submit" value="Gem" />
 </form>
