@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/static/css/main.css" type="text/css" />
 </head>
 <body>
-<div id="header">RKG - Ølregnskab</div>
+<div id="header">${escape(repr(endpoint))}</div>
 <div id="page" class="yui3-g">
 
 <div class="yui3-u-1-5">

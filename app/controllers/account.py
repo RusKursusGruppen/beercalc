@@ -23,3 +23,5 @@ def edit(id):
 def create_form():
     template_response("/page/account/create.mako")
 
+def create_form_do():
+    pass
