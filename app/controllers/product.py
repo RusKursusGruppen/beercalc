@@ -9,7 +9,7 @@ from app.document import inventory, document
 from app.utils.currency import parsenumber
 
 def browse():
-    products = [(a.id, a.name, a.stock, a.fixedprice) for a in inventory.list_by_name()]
+    products = [(a.id, a.name, a.total_purchase(), a.fixedprice) for a in inventory.list_by_name()]
     template_response("/page/product/browse.mako",
         products = products,
     )
