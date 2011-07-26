@@ -22,9 +22,9 @@ from app.utils.currency import formatcurrency
     <tr style="background:#8F8;">
 %endif
 %if len(name) == 0:
-        <td><a href=${escattr(urlfor("account.edit", id=id))}>[Tomt Navn]</td>
+        <td><a href=${escattr(urlfor("account.edit", id=id))}>[Tomt Navn]</a></td>
 %else:
-        <td><a href=${escattr(urlfor("account.edit", id=id))}>${escape(name)}</td>
+        <td><a href=${escattr(urlfor("account.edit", id=id))}>${escape(name)}</a></td>
 %endif
             <td style="text-align:right;">${escape(formatcurrency(balance))}</td>
         </tr>
