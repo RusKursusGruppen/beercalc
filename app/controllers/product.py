@@ -64,7 +64,7 @@ def create_do():
 
     document.save(u"Tilføjede produkt '%s'" % (product.name, ))
 
-    redirect("product.browse")
+    redirect("product.edit", product_id=product.id)
 
 def purchase_form(product_id):
     product = inventory.get_product(product_id)

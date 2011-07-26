@@ -17,12 +17,12 @@ def import_form():
     template_response("/page/account/import_form.mako")
 
 def import_do():
-    r = re.compile('(.*?)(\S+@\S+)(.*)', re.UNICODE)
-
+    r = re.compile(r'\S+@\S+', re.UNICODE)
+    
     for l in local.request.form.get("data", u"").split("\n"):
-        m = r.match(l.strip())
-        email = m.group(2)
-        name = ("%s %s" % (m.group(1).strip(), m.group(3).strip())).strip()
+        m = r.search(l)
+        email = m and m.group(0) or u""
+        name = " ".join("".join(r.split(l, maxsplit=1)).split())
         if accounts.exists(name, email):
             continue
         account = Account(name=name, email=email)
