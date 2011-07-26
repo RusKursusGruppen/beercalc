@@ -20,6 +20,9 @@ def parsenumber(text):
         return number
 
 def formatcurrency(integer):
+    return formatnumber(integer) + u" kr."
+
+def formatnumber(integer):
     prefix = u""
     if integer < 0:
         integer = abs(integer)
@@ -36,4 +39,4 @@ def formatcurrency(integer):
     # Zero pad 
     fraction = (u"0" + fraction)[-2:]
     
-    return prefix + integer + u"," + fraction + u" kr."
+    return prefix + integer + u"," + fraction

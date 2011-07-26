@@ -6,8 +6,10 @@ from app.model.inventory import Product
 
 from app.document import inventory, document
 
+from app.utils.currency import parsenumber
+
 def browse():
-    products = [(a.id, a.name, a.stock) for a in inventory.list_by_name()]
+    products = [(a.id, a.name, a.stock, a.fixedprice) for a in inventory.list_by_name()]
     template_response("/page/product/browse.mako",
         products = products,
     )
@@ -35,7 +37,7 @@ def edit_do(product_id):
     if len(fixedprice) == 0:
         fixedprice = None
     else:
-        fixedprice = int(fixedprice)
+        fixedprice = parsenumber(fixedprice)
 
     product = inventory.get_product(product_id)
 
@@ -55,7 +57,7 @@ def create_do():
     if len(fixedprice) == 0:
         fixedprice = None
     else:
-        fixedprice = int(fixedprice)
+        fixedprice = parsenumber(fixedprice)
 
     product = Product(name=name, fixedprice=fixedprice)
     inventory.add_product(product)

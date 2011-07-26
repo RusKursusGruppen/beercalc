@@ -1,6 +1,6 @@
 <%!
 import app.utils.date as dateutils
-from app.utils.currency import formatcurrency
+from app.utils.currency import formatcurrency, formatnumber
 %>
 <%inherit file="/main.mako"/>
 <h1>Produkt: ${escape(name)}</h1>
@@ -17,7 +17,7 @@ from app.utils.currency import formatcurrency
 %if fixedprice is None:
                 <input name="fixedprice" id="fixedprice" />
 %else:
-                <input name="fixedprice" id="fixedprice" value=${escattr(str(fixedprice))} />
+                <input name="fixedprice" id="fixedprice" value=${escattr(formatnumber(fixedprice))} />
 %endif
             </td>
         </tr>
