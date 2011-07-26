@@ -1,6 +1,6 @@
 <%!
 import app.utils.date as dateutils
-from app.utils.misc import formatcurrency
+from app.utils.currency import formatcurrency
 %>
 <%inherit file="/main.mako"/>
 <h1>Produkt: ${escape(name)}</h1>
