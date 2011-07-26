@@ -18,11 +18,17 @@ class Document(object):
         self.accounts = accounts or Accounts()
         self.usage = usage or Usage(self.inventory, self.accounts)
         self.version = version
+        self.filepath = filepath
 
-    def save(self, filepath, comment = u""):
+    def save(self, comment = u"", filepath=None):
         self.date = dateutils.now()
         self.comment = comment
         
+        filepath = filepath or self.filepath
+
+        if filepath is None:
+            raise Exception("No path specified")
+
         try:
             current = Document.load(filepath)
         except IOError:
@@ -51,7 +57,7 @@ class Document(object):
     @staticmethod
     def load(filepath):
         with open(filepath, "r") as f:
-            return Document.create(json.load(f))
+            return Document.create(json.load(f), filepath)
 
     @staticmethod
     def create(data, filepath = None):
