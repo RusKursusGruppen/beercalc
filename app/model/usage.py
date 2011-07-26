@@ -11,12 +11,18 @@ class Usage(object):
         self.accounts = accounts
         self.counter = defaultdict(int)
         self.total_counts = defaultdict(int)
+        self.profits = defaultdict(int)
 
     def update(self, account_id, product_id, amount):
         account = self.accounts.get_account(account_id)
         product = self.inventory.get_product(product_id)
         self.counter[account, product] += amount
         self.total_counts[product] += amount
+    
+    def set_profit(product_id, amount):
+        product = self.inventory.get_product(product_id)
+        print "Profit for %s was set to %d" % (product.name, amount)
+        self.profits[product] = amount
 
     def commit(self):
         for (account, product), count in self.counter.items():
@@ -26,7 +32,7 @@ class Usage(object):
             if account.istutor:
                 price = product.get_fixedprice(count)
             else:
-                price = product.get_price(count, self.total_counts[product])
+                price = product.get_price(count, self.total_counts[product], self.profits[product])
 
             account.add_transaction(u"Køb af %d %s" % (count, product.name,), -price)
             product.income.add_transaction(u"Køb fra %s af %d stk." % (account.id, count), price)

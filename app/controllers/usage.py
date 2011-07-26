@@ -2,6 +2,8 @@
 from app.utils.misc import template_response, local, urlfor, redirect
 
 from app.document import accounts, inventory, usage, document
+from app.utils.currency import parsenumber
+
 
 def new_form():
     accounts_iter = ((a.id, a.name) for a in accounts.list_by_name())
@@ -17,7 +19,9 @@ def new_form_do():
             stock = int(local.request.form.get("stock_%s" % (p.id, ), "0"))
         except:
             stock = 0
-        p.stock = stock
+        
+        profit = local.request.form.get("profit_%s" % (p.id, ), "0")
+        usage.set_profit(product.id, parsenumber(profit) or 0)
 
         for a in accounts.list_by_name():
             try:

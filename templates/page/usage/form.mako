@@ -12,13 +12,18 @@
             <tr>
                 <th>Produktnavn:</th>
                 <th>Beholdning:</th>
+                <th>Profit:</th>
             </tr>
         </thead>
         <tbody>
 %for id, name in products:
             <tr>
                 <td>${escape(name)}:</td>
-                <td><input type="text" name="stock_${escape(id)}" style="width:4em" tabindex=${escattr(str(counter))}/></td>
+                <td><input type="text" name=${escattr(u"stock_" + id)} style="width:4em" tabindex=${escattr(str(counter))}/></td>
+<%
+    counter += 1
+%>
+                <td><input type="text" name=${escattr(u"profit_" + id)} style="width:4em" tabindex=${escattr(str(counter))}/></td>
             </tr>
 <%
     counter += 1

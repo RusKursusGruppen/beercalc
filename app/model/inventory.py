@@ -66,8 +66,8 @@ class Product(object):
     def value_left(self):
         return (self.total_purchase() * self.stock) / self.total_quantity()
 
-    def get_price(self, sold_individual, sold_total):
-        missing_income = self.total_purchase() - self.income.get_balance() - self.value_left()
+    def get_price(self, sold_individual, sold_total, profit = 0):
+        missing_income = self.total_purchase() - self.income.get_balance() - self.value_left() + profit
         return (sold_individual * missing_income) / sold_total
     
     def get_fixedprice(self, count=0):
