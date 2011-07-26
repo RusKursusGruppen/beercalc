@@ -9,6 +9,8 @@ endpoints = {
     "account.create_form": app.controllers.account.create_form,
     "account.create_do": app.controllers.account.create_do,
     "account.browse": app.controllers.account.browse,
+    "account.import": app.controllers.account.import_form,
+    "account.import_do": app.controllers.account.import_do,
     "account.edit": app.controllers.account.edit,
     "account.edit_do": app.controllers.account.edit_do,
     "usage.new_form": app.controllers.usage.new_form,
@@ -27,6 +29,8 @@ url_map = werkzeug.routing.Map()
 
 for method, path, endpoint in [
         ("GET", "/accounts", "account.browse"),
+        ("GET", "/accounts/import", "account.import"),
+        ("POST", "/accounts/import", "account.import_do"),
         ("GET", "/account/edit/<string:id>", "account.edit"),
         ("GET", "/account/create", "account.create_form"),
         ("POST", "/account/create/do", "account.create_do"),

@@ -14,6 +14,12 @@ class Accounts(object):
     def add_account(self, account):
         self.accounts[account.id] = account
 
+    def exists(self, name, email):
+        for a in self.accounts.values():
+            if a.name == name and a.email == email:
+                return True
+        return False
+
     def get_account(self, id_):
         return self.accounts[id_]
     
