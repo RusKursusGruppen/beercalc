@@ -1,8 +1,11 @@
+<%
+    counter = 1
+%>
 <%inherit file="/main.mako"/>
 
 <h1>Ny optælling</h1>
 
-<form action="" method="post">
+<form action=${escattr(urlfor("usage.new_form_do"))} method="post">
     <h2>Varebeholdning</h2>
     <table>
         <thead>
@@ -15,8 +18,11 @@
 %for id, name in products:
             <tr>
                 <td>${escape(name)}:</td>
-                <td><input type="text" name="stock_${escape(id)}" style="width:4em" /></td>
+                <td><input type="text" name="stock_${escape(id)}" style="width:4em" tabindex=${escattr(str(counter))}/></td>
             </tr>
+<%
+    counter += 1
+%>
 %endfor
         </tbody>
     </table>
@@ -36,12 +42,16 @@
             <tr>
                 <td><a href=${escattr(urlfor("account.edit", id=aid))}>${escape(aname)}</a></td>
 %for pid, pname in products:
-                <td><input type="text" name="usage_${escape(aid)}_${escape(pid)}" style="width:4em" /></td>
+                <td><input type="text" name="usage_${escape(aid)}_${escape(pid)}" style="width:4em" tabindex=${escattr(str(counter))} /></td>
+<%
+    counter += 1
+%>
 %endfor
             </tr>
+
 %endfor
         </tbody>
     </table>
 
-    <input type="submit" name="submit" value="Afregn" />
+    <input type="submit" name="submit" value="Afregn" tabindex=${escattr(str(counter))} />
 </form>
