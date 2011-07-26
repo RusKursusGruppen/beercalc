@@ -9,6 +9,7 @@
 <head>
     <title>${escape(repr(endpoint))}</title>
     <link rel="stylesheet" href="/static/css/main.css" type="text/css" />
+    <link rel="icon" href="/static/beer.ico" type="image/x-icon">
 </head>
 <body>
 <div id="header">${escape(repr(endpoint))}</div>
