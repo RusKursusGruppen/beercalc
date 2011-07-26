@@ -17,19 +17,24 @@ class Usage(object):
         product = self.inventory.get_product(product_id)
         self.counter[account, product] += amount
         self.total_counts[product] += amount
-    
+
     def commit(self):
         for (account, product), count in self.counter.items():
             if count == 0:
                 continue
-            price = product.get_price(count, self.total_counts[product])
+
+            if account.istutor:
+                price = product.get_fixedprice(count)
+            else:
+                price = product.get_price(count, self.total_counts[product])
+
             account.add_transaction(u"Køb af %d %s" % (count, product.name,), -price)
             product.income.add_transaction(u"Køb fra %s af %d stk." % (account.id, count), price)
             self.total_counts[product] -= count
 
         self.counter.clear()
         self.total_counts.clear()
-    
+
     def export(self):
         return {
             "counter": [
