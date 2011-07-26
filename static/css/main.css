@@ -21,6 +21,19 @@ body{font:13px/1.231 arial,helvetica,clean,sans-serif;*font-size:small;*font:x-s
     margin: 0 auto 0 auto;
     width: 940px;
 }
+#nav_container {
+    background: url("/static/images/nav-gradient.png") repeat-x;
+} 
+
 #nav {
-    border: 1px solid #000;
+    padding: 20px 0 0 0;
+    min-height:400px;
 }
+
+#content {
+    min-height:500px;
+    padding: 20px 20px 0 20px;
+    border-left:1px solid #000;
+    border-bottom:0px solid #000;
+}
+
