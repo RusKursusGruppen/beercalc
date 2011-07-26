@@ -24,8 +24,16 @@ class Accounts(object):
         return self.accounts[id_]
     
     def list_by_name(self):
+        def sortcmp(a,b):
+            if a.istutor and not b.istutor:
+                return 1
+            elif b.istutor and not a.istutor:
+                return -1
+            
+            return cmp(a.name,b.name)
+                
         ret = self.accounts.values()
-        ret.sort(key=lambda x: x.name)
+        ret.sort(sortcmp)
         return ret
     
     def export(self):
