@@ -22,6 +22,7 @@ from app.utils.currency import formatcurrency, formatnumber
             </td>
         </tr>
     </table>
+    <p>Vejlederprisen udregnes automatisk hvis den udelades.</p>
     <input type="submit" name="submit" value="Gem" />
 </form>
 
