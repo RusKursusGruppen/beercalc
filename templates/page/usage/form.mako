@@ -53,5 +53,5 @@
         </tbody>
     </table>
 
-    <input type="submit" name="submit" value="Afregn" />
+    <input type="submit" name="submit" value="Afregn" tabindex=${escattr(str(counter))} />
 </form>
