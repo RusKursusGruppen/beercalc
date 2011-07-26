@@ -2,7 +2,7 @@
 from app.utils.misc import template_response, local, urlfor, redirect
 
 from app.controllers import notfound
-from app.model.inventory import Product
+from app.model.inventory import Product, Purchase
 
 from app.document import inventory, document
 
@@ -66,8 +66,22 @@ def create_do():
 
     redirect("product.browse")
 
-def purchase_form():
-    pass
+def purchase_form(product_id):
+    product = inventory.get_product(product_id)
+    template_response("/page/product/purchase_form.mako",
+        product_id = product.id,
+        product_name = product.name,
+    )
 
-def purchase_do():
-    pass
+def purchase_do(product_id):
+    product = inventory.get_product(product_id)
+
+    name = local.request.form.get("name", u"")
+    quantity = int(local.request.form.get("quantity", u"0"))
+    price = parsenumber(local.request.form.get("price", u"0"))
+
+    purchase = Purchase(name, price, quantity)
+    product.add_purchase(purchase)
+
+    document.save(u"Tilføjede indkøb '%s' til '%s'" % (product.name, name))
+    redirect("product.edit", product_id=product.id)

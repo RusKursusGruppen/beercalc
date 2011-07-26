@@ -52,4 +52,4 @@ from app.utils.currency import formatcurrency, formatnumber
     </tbody>
 </table>
 
-<p><a href="">Nyt indkøb</a></p>
+<p><a href=${escattr(urlfor("product.purchase", product_id=id))}>Nyt indkøb</a></p>
