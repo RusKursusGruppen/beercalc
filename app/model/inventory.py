@@ -29,12 +29,13 @@ class Inventory(object):
         return ret
 
 class Product(object):
-    def __init__(self, name=u"", stock=0, income=None, id_=None, purchases=None):
+    def __init__(self, name=u"", stock=0, income=None, id_=None, purchases=None, fixedprice=None):
         self.purchases = purchases or []
         self.name = name
         self.stock = stock
         self.income = income or Account()
         self.id = id_ or unicode(uuid4().hex)
+        self.fixedprice = fixedprice
     
     def add_purchase(self, purchase):
         self.purchases.append(purchase)
@@ -52,16 +53,17 @@ class Product(object):
         missing_income = self.total_purchase() - self.income.get_balance() - self.value_left()
         return (sold_individual * missing_income) / sold_total
     
-    def get_fixedprice(self, count=0, price=None):
-        if price is None:
+    def get_fixedprice(self, count=0):
+        if self.fixedprice is None:
             return (self.total_purchase() * count) / self.total_quantity()
         else:
-            return count * price
+            return count * self.fixedprice
     
     def export(self):
         return {
             "id": self.id,
             "name": self.name,
+            "fixedprice": self.fixedprice,
             "stock": self.stock,
             "income": self.income.export(),
             "purchases": [p.export() for p in self.purchases]
@@ -75,7 +77,8 @@ class Product(object):
             stock = data["stock"],
             income = Account.create(data["income"]),
             id_ = data["id"],
-            purchases = [Purchase.create(p) for p in data["purchases"]]
+            purchases = [Purchase.create(p) for p in data["purchases"]],
+            fixedprice = data["fixedprice"]
         )
     
 class Purchase(object):

@@ -15,7 +15,7 @@
     <tbody>
 %for id, name, stock in products:
         <tr>
-            <td><a href=${escattr(urlfor("product.view", product_id=id))}>${escape(name)}</td>
+            <td><a href=${escattr(urlfor("product.edit", product_id=id))}>${escape(name)}</td>
             <td style="text-align:right;">${escape(str(stock))}</td>
         </tr>
 %endfor
