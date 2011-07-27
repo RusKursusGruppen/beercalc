@@ -19,16 +19,19 @@ def import_form():
 def import_do():
     r = re.compile(r'\S+@\S+', re.UNICODE)
     
+    count = 0
     for l in local.request.form.get("data", u"").split("\n"):
         m = r.search(l)
         email = m and m.group(0) or u""
         name = " ".join("".join(r.split(l, maxsplit=1)).split())
-        if accounts.exists(name, email):
+        if accounts().exists(name, email):
             continue
+
+        count += 1
         account = Account(name=name, email=email)
         accounts().add_account(account)
-
-    document().save("Kontoimport")
+        
+    document().save("Kontoimport (%d konti)" % (count,))
     redirect("account.browse")
 
 
