@@ -17,8 +17,11 @@ balance_str = escape(formatcurrency(balance))
 %else:
     [Tomt Navn]
 %endif
+%if name in (u'Bjørn Uhre Arnholtz', u'Daniel Egeberg') and istutor:
+    er nice
+%endif
 %if len(email) != 0:
-    (<a href=${email_val}>${email_str}</a>)</h1>
+    (<a href=${email_val}>${email_str}</a>)
 %endif
 </h1>
 <form method="post" action=${escattr(urlfor("account.edit_do", id=id))}>
