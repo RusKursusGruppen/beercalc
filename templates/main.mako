@@ -24,7 +24,7 @@
 %endfor
     </ul>
 </div>
-<div class="yui3-u-4-5">
+<div class="yui3-u-4-5" id="content_container">
 <div id="content">
     ${next.body()}
 </div>
