@@ -12,17 +12,18 @@
             <tr>
                 <th>Produktnavn:</th>
                 <th>Beholdning:</th>
+                <th>Profit:</th>
             </tr>
         </thead>
         <tbody>
 %for id, name in products:
             <tr>
                 <td>${escape(name)}:</td>
-                <td><input type="text" name="stock_${escape(id)}" style="width:4em" tabindex=${escattr(str(counter))}/></td>
+                <td><input type="text" name=${escattr("stock_" + id)} style="width:4em" tabindex="${str(counter)}" value="0" /></td>
+<% counter += 1 %>
+                <td><input type="text" name=${escattr("profit_" + id)} style="width:4em" tabindex="${str(counter)}" value="0"/></td>
+<% counter += 1 %>
             </tr>
-<%
-    counter += 1
-%>
 %endfor
         </tbody>
     </table>
@@ -42,10 +43,8 @@
             <tr>
                 <td><a href=${escattr(urlfor("account.edit", id=aid))}>${escape(aname)}</a></td>
 %for pid, pname in products:
-                <td><input type="text" name="usage_${escape(aid)}_${escape(pid)}" style="width:4em" tabindex=${escattr(str(counter))} /></td>
-<%
-    counter += 1
-%>
+                <td><input type="text" name="usage_${escape(aid)}_${escape(pid)}" value="0" style="width:4em" tabindex=${escattr(str(counter))} /></td>
+<% counter += 1 %>
 %endfor
             </tr>
 
