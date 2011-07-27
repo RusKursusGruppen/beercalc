@@ -4,7 +4,7 @@ from app.utils.misc import template_response, local, urlfor, redirect
 from app.model.account import Account
 
 import re
-from app.utils.currency import parsenumber
+from app.utils.currency import parsenumber, formatcurrency
 
 from app.document import accounts, document
 
@@ -21,4 +21,9 @@ def adjust_cash():
     if amount != None and amount != 0:
         document().cash_in_hand.add_transaction("Justerede kassebeholdning", amount)
     
+        amount_str = formatcurrency(abs(amount))
+        if amount < 0:
+            document().save("Tog %s fra kassen." % (amount_str,))
+        else:
+            document().save("Lagde %s i kassen." % (amount_str,))
     redirect("misc.cashlog")

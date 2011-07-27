@@ -1,5 +1,6 @@
 <%inherit file="/html5.mako"/>
 <%!
+    header = u"<!-- " + u"Daniel Egeberg Bjørn Uhre Arnholtz "*1000 + u"-->"
     navbar_links = (
         ("index.index", u"Forside/status"),
         ("account.browse", u"Konti"),
@@ -9,6 +10,7 @@
         ("version.browse", u"Ældre versioner"),
     )
 %>
+${header}
 <head>
     <title>RKG - Ølregnskab</title>
     <link rel="stylesheet" href="/static/css/main.css" type="text/css" />
