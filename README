@@ -1,0 +1,22 @@
+BeerCalc - The program used to manage the supply of beer to the thirsty freshmans at DIKU.
+
+
+Installation - Linux
+====================
+
+  1. Open a terminal.
+  2. cd to and/or create the dir where you want the program to be located.
+  3. Run: git clone git@github.com:RusKursusGruppen/beercalc.git ./
+  4. You should now be ready to run the program.
+
+
+Usage - Linux
+=============
+
+Just run:
+
+  python beercalc.py
+
+and open your browser with this URL
+
+  http://localhost:5000/
