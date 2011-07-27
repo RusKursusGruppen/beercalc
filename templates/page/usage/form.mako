@@ -7,7 +7,6 @@ function preview_update(){
     $.post("${urlfor("usage.preview")}",
         $("#usage_form").serialize(),
         function(accountlist){
-            console.log(accountlist);
             accountlist.forEach(function(account){
                 $("#preview_" + account.id).text(account.balance);
             });
