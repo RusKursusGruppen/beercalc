@@ -30,8 +30,12 @@ def import_do():
         count += 1
         account = Account(name=name, email=email)
         accounts().add_account(account)
-        
-    document().save("Kontoimport (%d konti)" % (count,))
+    
+    if count == 1:
+        document().save("Kontoimport (%d konto)" % (count,))
+    else:
+        document().save("Kontoimport (%d konti)" % (count,))
+
     redirect("account.browse")
 
 
