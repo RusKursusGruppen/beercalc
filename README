@@ -13,10 +13,6 @@ Installation - Linux
 Usage - Linux
 =============
 
-Just run:
+Just run: 
 
-  python beercalc.py
-
-and open your browser with this URL
-
-  http://localhost:5000/
+  sh linux.sh
