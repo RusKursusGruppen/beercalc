@@ -10,7 +10,6 @@ import app.controllers.version
 
 endpoints = {
     "index.index": app.controllers.index.index,
-    "misc.test": app.controllers.misc.test,
     "misc.cashlog": app.controllers.misc.cashlog,
     "misc.adjust_cash": app.controllers.misc.adjust_cash,
     "account.create_form": app.controllers.account.create_form,
@@ -44,7 +43,6 @@ url_map = werkzeug.routing.Map()
 
 for method, path, endpoint in [
         ("GET", "/", "index.index"),
-        ("POST", "/test", "misc.test"),
         ("GET", "/cash_log", "misc.cashlog"),
         ("POST", "/cash_log/adjust_amount", "misc.adjust_cash"),
         ("GET", "/accounts", "account.browse"),
