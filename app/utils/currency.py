@@ -1,23 +1,27 @@
 # -*- coding: utf-8 -*-
 
 def parsenumber(text):
-        text = text.strip()
-        negative = False
-        if text[0] == "-":
-            text = text[1:]
-            negative = True
+    text = text.strip()
+    
+    if len(text) == 0:
+        return
 
-        if not all(x in "0123456789,." for x in text):
-            return
-        text = "".join(text.split("."))
-        text = (text + "00").split(",")
-        if len(text) > 2:
-            return
-        number = int("".join(text[0:1]) + "".join(text[1:2])[0:2])
+    negative = False
+    if text[0] == "-":
+        text = text[1:]
+        negative = True
 
-        if negative:
-            return -number
-        return number
+    if not all(x in "0123456789,." for x in text):
+        return
+    text = "".join(text.split("."))
+    text = (text + "00").split(",")
+    if len(text) > 2:
+        return
+    number = int("".join(text[0:1]) + "".join(text[1:2])[0:2])
+
+    if negative:
+        return -number
+    return number
 
 def formatcurrency(integer):
     return formatnumber(integer) + u" kr."
