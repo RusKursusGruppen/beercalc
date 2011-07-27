@@ -6,7 +6,7 @@ try:
     doc = [Document.load("savedir/save.beer")]
 except IOError:
     doc = [Document()]
-    doc[0].save(filepath="savedir/save.beer", comment=u"New file")
+    doc[0].save(filepath="savedir/save.beer", comment=u"Ny fil")
 
 def document():
     return doc[0]
