@@ -13,7 +13,7 @@ def new_form():
         products = products,
     )
 
-def new_form_do():
+def update_usage_from_form():
     for p in inventory().list_by_name():
         try:
             stock = int(local.request.form.get("stock_%s" % (p.id, ), "0"))
@@ -23,8 +23,7 @@ def new_form_do():
 
         profit = parsenumber(local.request.form.get("profit_%s" % (p.id, ), "0"))
         
-        if profit != 0:
-            p.add_profit(profit)
+        usage().set_profit(p.id, profit or 0)
 
         for a in accounts().list_by_name():
             try:
@@ -33,7 +32,17 @@ def new_form_do():
                 amount = 0
             usage().update(a.id, p.id, amount)
 
+def new_form_do():
+    update_usage_from_form()
     usage().commit()
     document().save(u"Afregning")
 
     redirect("account.browse")
+
+def preview():
+    usage().reset()
+    update_usage_from_form()
+
+    template_response("/page/usage/preview.mako", accounts = usage().preview())
+    
+

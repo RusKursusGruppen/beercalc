@@ -2,10 +2,29 @@
     counter = 1
 %>
 <%inherit file="/main.mako"/>
+<script type="text/javascript">
+function preview_update(){
+    $.post("${urlfor("usage.preview")}",
+        $("#usage_form").serialize(),
+        function(accountlist){
+            console.log(accountlist);
+            accountlist.forEach(function(account){
+                $("#preview_" + account.id).text(account.balance);
+            });
+        },
+        "json"
+    )
+}
+
+$(document).ready(function(){
+    preview_update();
+    $("#usage_form input[type=text]").keyup(preview_update);
+});
+</script>
 
 <h1>Ny optælling</h1>
 
-<form action=${escattr(urlfor("usage.new_form_do"))} method="post">
+<form id="usage_form" action=${escattr(urlfor("usage.new_form_do"))} method="post">
     <h2>Varebeholdning</h2>
     <table>
         <thead>
@@ -36,6 +55,7 @@
 %for id, name in products:
                 <th>${escape(name)}:</th>
 %endfor
+                <th>Forhåndsvisning:</th>
             </tr>
         </thead>
         <tbody>
@@ -44,6 +64,7 @@
                 <td><a href=${escattr(urlfor("account.edit", id=aid))}>${escape(aname)}</a></td>
 %for pid, pname in products:
                 <td><input type="text" name="usage_${escape(aid)}_${escape(pid)}" value="0" style="width:4em" tabindex=${escattr(str(counter))} /></td>
+                <td id=${escattr("preview_" + aid)}></td>
 <% counter += 1 %>
 %endfor
             </tr>

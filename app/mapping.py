@@ -10,6 +10,7 @@ import app.controllers.version
 
 endpoints = {
     "index.index": app.controllers.index.index,
+    "misc.test": app.controllers.misc.test,
     "misc.cashlog": app.controllers.misc.cashlog,
     "misc.adjust_cash": app.controllers.misc.adjust_cash,
     "account.create_form": app.controllers.account.create_form,
@@ -22,6 +23,7 @@ endpoints = {
     "account.edit_do": app.controllers.account.edit_do,
     "usage.new_form": app.controllers.usage.new_form,
     "usage.new_form_do": app.controllers.usage.new_form_do,
+    "usage.preview": app.controllers.usage.preview,
     "product.browse": app.controllers.product.browse,
     "product.edit": app.controllers.product.edit,
     "product.delete": app.controllers.product.delete,
@@ -42,6 +44,7 @@ url_map = werkzeug.routing.Map()
 
 for method, path, endpoint in [
         ("GET", "/", "index.index"),
+        ("POST", "/test", "misc.test"),
         ("GET", "/cash_log", "misc.cashlog"),
         ("POST", "/cash_log/adjust_amount", "misc.adjust_cash"),
         ("GET", "/accounts", "account.browse"),
@@ -53,6 +56,7 @@ for method, path, endpoint in [
         ("POST", "/account/edit/do/<string:id>", "account.edit_do"),
         ("POST", "/account/payment/<string:id>", "account.payment"),
         ("GET", "/usage/new", "usage.new_form"),
+        ("POST", "/usage/preview", "usage.preview"),
         ("POST", "/usage/new", "usage.new_form_do"),
         ("GET", "/products", "product.browse"),
         ("GET", "/product/edit/<string:product_id>", "product.edit"),

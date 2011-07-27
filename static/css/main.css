@@ -33,6 +33,24 @@ html {
     padding: 20px 0 0 0;
     min-height:400px;
 }
+#nav {
+    margin:0;
+    padding:0;
+}
+#nav > li {
+    list-style-type: none;
+}
+#nav > li > a {
+    text-decoration: none;
+    color:#000;
+    display:block;
+    border-bottom:1px solid #000;
+    padding:10px;
+}
+#nav > li > a:hover {
+    color:#FFF;
+    background:#000;
+}
 
 #content_container {
     border-left:1px solid #000;

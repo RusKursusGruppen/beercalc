@@ -4,6 +4,7 @@ from account import Accounts, Account
 from inventory import Inventory, Product, Purchase
 from collections import defaultdict
 
+from copy import deepcopy
 
 class Usage(object):
     def __init__(self, inventory, accounts):
@@ -11,18 +12,39 @@ class Usage(object):
         self.accounts = accounts
         self.counter = defaultdict(int)
         self.total_counts = defaultdict(int)
+        self.profits = defaultdict(int)
+
+    def set_profit(self, product_id, amount):
+        product = self.inventory.get_product(product_id)
+        self.profits[product] = amount
 
     def update(self, account_id, product_id, amount):
         account = self.accounts.get_account(account_id)
         product = self.inventory.get_product(product_id)
         self.counter[account, product] += amount
         self.total_counts[product] += amount
+    
+    def reset(self):
+        self.counter.clear()
+        self.total_counts.clear()
+        
+
+    def preview(self):
+        usage = deepcopy(self)
+        
+        usage.commit()
+        
+        for id, account_after in usage.accounts.accounts.items():
+            yield (id, account_after.get_balance() - self.accounts.get_account(id).get_balance())
 
     def commit(self):
-        for (account, product), count in self.counter.items():
+        for product, amount in self.profits.items():
+            product.add_profit(amount)
+
+        for (account, product), count in sorted(self.counter.items(), key=lambda x: x[0][0].name):
             if count == 0:
                 continue
-
+        
             if account.istutor:
                 price = product.get_fixedprice(count)
             else:
@@ -31,9 +53,8 @@ class Usage(object):
             account.add_transaction(u"Køb af %d %s" % (count, product.name,), -price)
             product.income.add_transaction(u"Køb fra %s af %d stk." % (account.id, count), price)
             self.total_counts[product] -= count
-
-        self.counter.clear()
-        self.total_counts.clear()
+        
+        self.reset()
 
     def export(self):
         return {

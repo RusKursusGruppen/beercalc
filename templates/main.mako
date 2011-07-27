@@ -10,11 +10,11 @@
         ("version.browse", u"Ældre versioner"),
     )
 %>
-${header}
 <head>
     <title>RKG - Ølregnskab</title>
     <link rel="stylesheet" href="/static/css/main.css" type="text/css" />
-    <link rel="icon" href="/static/beer.ico" type="image/x-icon">
+    <link rel="icon" href="/static/beer.ico" type="image/x-icon" />
+    <script type="text/javascript" src="/static/javascript/jquery.js"></script>
 </head>
 <body>
 <div id="header">RKG - Ølregnskab</div>
@@ -34,3 +34,4 @@ ${header}
 </div>
 </div>
 </body>
+${header}
