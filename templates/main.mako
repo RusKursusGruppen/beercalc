@@ -6,6 +6,7 @@
         ("usage.new_form", u"Ny afregning"),
         ("product.browse", u"Produkter"),
         ("misc.cashlog", u"Kasse"),
+        ("version.browse", u"Ældre versioner"),
     )
 %>
 <head>

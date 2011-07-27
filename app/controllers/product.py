@@ -9,19 +9,19 @@ from app.document import inventory, document
 from app.utils.currency import parsenumber
 
 def browse():
-    products = [(a.id, a.name, a.total_purchase(), a.fixedprice) for a in inventory.list_by_name()]
+    products = [(a.id, a.name, a.total_purchase(), a.fixedprice) for a in inventory().list_by_name()]
     template_response("/page/product/browse.mako",
         products = products,
     )
 
 def edit(product_id):
     try:
-        product = inventory.get_product(product_id)
+        product = inventory().get_product(product_id)
     except KeyError:
         notfound()
         return
 
-    purchases_iter = ((p.name, p.price, p.quantity, p.date, p.id) for p in product.list_purchases_by_date())
+    purchases_iter = ((p.name, p.price, p.quantity, p.date, p.id) for p in product().list_purchases_by_date())
 
     template_response("/page/product/edit.mako",
         id = product.id,
@@ -39,12 +39,12 @@ def edit_do(product_id):
     else:
         fixedprice = parsenumber(fixedprice)
 
-    product = inventory.get_product(product_id)
+    product = inventory().get_product(product_id)
 
     product.name = name
     product.fixedprice = fixedprice
 
-    document.save(u"Ændrede data for produkt '%s'" % (name,))
+    document().save(u"Ændrede data for produkt '%s'" % (name,))
 
     redirect("product.edit", product_id=product_id)
 
@@ -60,21 +60,21 @@ def create_do():
         fixedprice = parsenumber(fixedprice)
 
     product = Product(name=name, fixedprice=fixedprice)
-    inventory.add_product(product)
+    inventory().add_product(product)
 
-    document.save(u"Tilføjede produkt '%s'" % (product.name, ))
+    document().save(u"Tilføjede produkt '%s'" % (product.name, ))
 
     redirect("product.edit", product_id=product.id)
 
 def purchase_form(product_id):
-    product = inventory.get_product(product_id)
+    product = inventory().get_product(product_id)
     template_response("/page/product/purchase_form.mako",
         product_id = product.id,
         product_name = product.name,
     )
 
 def purchase_do(product_id):
-    product = inventory.get_product(product_id)
+    product = inventory().get_product(product_id)
 
     name = local.request.form.get("name", u"")
     quantity = int(local.request.form.get("quantity", u"0"))
@@ -83,20 +83,20 @@ def purchase_do(product_id):
     purchase = Purchase(name, price, quantity)
     product.add_purchase(purchase)
 
-    document.save(u"Tilføjede indkøb '%s' til '%s'" % (product.name, name))
+    document().save(u"Tilføjede indkøb '%s' til '%s'" % (product.name, name))
     redirect("product.edit", product_id=product.id)
 
 
 def purchase_delete(product_id, purchase_id):
-    product = inventory.get_product(product_id)
+    product = inventory().get_product(product_id)
     purchase = product.get_purchase(purchase_id)
 
     product.remove_purchase(purchase.id)
-    document.save('Removed purchase "%s" from product "%s"' % (product.name, purchase.name))
+    document().save('Removed purchase "%s" from product "%s"' % (product.name, purchase.name))
     redirect("product.edit", product_id=product_id)
 
 def delete(product_id):
-    product = inventory.get_product(product_id)
+    product = inventory().get_product(product_id)
     inventory.remove_product(product.id)
-    document.save('Removed product "%s"' % (product.name,))
+    document().save('Removed product "%s"' % (product.name,))
     redirect("product.browse")

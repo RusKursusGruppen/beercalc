@@ -6,6 +6,7 @@ import app.controllers.usage
 import app.controllers.product
 import app.controllers.index
 import app.controllers.misc
+import app.controllers.version
 
 endpoints = {
     "index.index": app.controllers.index.index,
@@ -29,6 +30,9 @@ endpoints = {
     "product.purchase_delete": app.controllers.product.purchase_delete,
     "product.create_form": app.controllers.product.create_form,
     "product.create_do": app.controllers.product.create_do,
+    "version.browse": app.controllers.version.browse,
+    "version.view": app.controllers.version.view,
+    "version.rollback": app.controllers.version.rollback,
     "notfound": app.controllers.notfound,
     "error": app.controllers.error,
 }
@@ -57,6 +61,9 @@ for method, path, endpoint in [
         ("GET", "/product/purchase/delete/<string:product_id>/<string:purchase_id>", "product.purchase_delete"),
         ("GET", "/product/create", "product.create_form"),
         ("POST", "/product/create", "product.create_do"),
+        ("GET", "/version", "version.browse"),
+        ("GET", "/version/<string:filename>", "version.view"),
+        ("GET", "/version/<string:filename>/rollback", "version.rollback"),
     ]:
     rule = werkzeug.routing.Rule(path, methods=[method], endpoint=endpoint)
     url_map.add(rule)

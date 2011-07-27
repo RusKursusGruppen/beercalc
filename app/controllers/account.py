@@ -8,7 +8,7 @@ from app.utils.currency import parsenumber
 
 from app.document import accounts, document
 def browse():
-    accounts_iter = ((a.id, a.name, a.get_balance()) for a in accounts.list_by_name())
+    accounts_iter = ((a.id, a.name, a.get_balance()) for a in accounts().list_by_name())
     template_response("/page/account/browse.mako",
         accounts = accounts_iter,
     )
@@ -26,14 +26,14 @@ def import_do():
         if accounts.exists(name, email):
             continue
         account = Account(name=name, email=email)
-        accounts.add_account(account)
+        accounts().add_account(account)
 
-    document.save("Kontoimport")
+    document().save("Kontoimport")
     redirect("account.browse")
 
 
 def edit(id):
-    account = accounts.get_account(id)
+    account = accounts().get_account(id)
     transactions = account.transactions
     
     transactions = ((t.date, t.description, t.amount) for t in transactions)
@@ -50,13 +50,13 @@ def edit_do(id):
     email = local.request.form.get("email", u"")
     name = local.request.form.get("name", u"")
     
-    account = accounts.get_account(id)
+    account = accounts().get_account(id)
     
     account.name = name
     account.email = email
     account.istutor = istutor
 
-    document.save(u'Ændrede data for konto "%s"'  % (name,))
+    document().save(u'Ændrede data for konto "%s"'  % (name,))
 
     redirect("account.edit", id=id)
 
@@ -71,9 +71,9 @@ def create_do():
     
     account = Account(name=name, email=email, istutor=istutor)
     
-    accounts.add_account(account)
+    accounts().add_account(account)
     
-    document.save(u'Oprettede kontoen "%s"' % (name,))
+    document().save(u'Oprettede kontoen "%s"' % (name,))
     redirect("account.browse")
 
 def payment(id):
@@ -86,16 +86,16 @@ def payment(id):
     if amount == None:
         return fail()
 
-    account = accounts.get_account(id)
+    account = accounts().get_account(id)
     
     if amount < 0:
         account.add_transaction(u"Udbetaling", amount)
-        document.cash_in_hand.add_transaction(u'Udbetaling "%s"' % (account.name,), amount)
+        document().cash_in_hand.add_transaction(u'Udbetaling "%s"' % (account.name,), amount)
     else:
         account.add_transaction(u"Indbetaling", amount)
-        document.cash_in_hand.add_transaction(u'Indbetaling "%s"' % (account.name,), amount)
+        document().cash_in_hand.add_transaction(u'Indbetaling "%s"' % (account.name,), amount)
     
 
-    document.save(u'Ind-/udbetaling på konto "%s"' % (account.name,))
+    document().save(u'Ind-/udbetaling på konto "%s"' % (account.name,))
     return redirect("account.edit", id=id)
     template_response("/page/test.mako", test=amount)

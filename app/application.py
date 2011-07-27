@@ -7,12 +7,17 @@ from werkzeug.exceptions import NotFound
 from app.mapping import url_map, endpoints
 from app.utils.misc import local, path
 from app.utils.session import Session
+from app.model.document import Document
 
 class Application(object):
     def __init__(self, debug):
-        local.application = self
         self.debug = debug
         self.dispatch = SharedDataMiddleware(self.dispatch, {"/static": path["static"]})
+        try:
+            self.document = Document.load("savedir/save.beer")
+        except IOError:
+            self.document = Document()
+            self.document.save(filepath="savedir/save.beer", comment=u"New file")
     
     def dispatch(self, environ, start_response):
         try:
