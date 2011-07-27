@@ -92,11 +92,11 @@ def purchase_delete(product_id, purchase_id):
     purchase = product.get_purchase(purchase_id)
 
     product.remove_purchase(purchase.id)
-    document().save('Removed purchase "%s" from product "%s"' % (product.name, purchase.name))
+    document().save(u'Fjernede indkøb "%s" fra produkt "%s"' % (product.name, purchase.name))
     redirect("product.edit", product_id=product_id)
 
 def delete(product_id):
     product = inventory().get_product(product_id)
     inventory().remove_product(product.id)
-    document().save('Removed product "%s"' % (product.name,))
+    document().save(u'Tilføjede "%s"' % (product.name,))
     redirect("product.browse")
