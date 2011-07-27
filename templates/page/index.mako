@@ -22,7 +22,7 @@
     </tr>
     <tr>
         <td>Indtægter i alt</td>
-        <td>${escape(formatcurrency(income))}</td>
+        <td>${escape(formatcurrency(income))} (heraf profit: ${escape(formatcurrency(profit))})</td>
     </tr>
     <tr>
         <td>Udgifter i alt</td>

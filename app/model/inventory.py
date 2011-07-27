@@ -32,11 +32,12 @@ class Inventory(object):
         return ret
 
 class Product(object):
-    def __init__(self, name=u"", stock=0, income=None, id_=None, purchases=None, fixedprice=None):
+    def __init__(self, name=u"", stock=0, income=None, id_=None, purchases=None, fixedprice=None, profit=None):
         self.purchases = purchases or {}
         self.name = name
         self.stock = stock
         self.income = income or Account()
+        self.profit = profit or Account()
         self.id = id_ or unicode(uuid4().hex)
         self.fixedprice = fixedprice
     
@@ -65,9 +66,15 @@ class Product(object):
     
     def value_left(self):
         return (self.total_purchase() * self.stock) / self.total_quantity()
+    
+    def add_profit(self, amount):
+        self.profit.add_transaction("Added profit", amount)
 
     def get_price(self, sold_individual, sold_total):
-        missing_income = self.total_purchase() - self.income.get_balance() - self.value_left()
+        missing_income = self.total_purchase()
+        missing_income += self.profit.get_balance()
+        missing_income -= self.income.get_balance() + self.value_left()
+
         return (sold_individual * missing_income) / sold_total
     
     def get_fixedprice(self, count=0):
@@ -83,6 +90,7 @@ class Product(object):
             "fixedprice": self.fixedprice,
             "stock": self.stock,
             "income": self.income.export(),
+            "profit": self.profit.export(),
             "purchases": [p.export() for p in self.purchases.values()]
         }
     
@@ -92,6 +100,7 @@ class Product(object):
             name = data["name"],
             stock = data["stock"],
             income = Account.create(data["income"]),
+            profit = Account.create(data["profit"]),
             id_ = data["id"],
             purchases = [],
             fixedprice = data["fixedprice"]

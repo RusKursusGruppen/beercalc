@@ -14,3 +14,11 @@ def cashlog():
         log = log,
         balance = document().cash_in_hand.get_balance()
     )
+
+def adjust_cash():
+    amount = parsenumber(local.request.form.get("amount", u""))
+
+    if amount != None and amount != 0:
+        document.cash_in_hand.add_transaction("Justerede kassebeholdning", amount)
+    
+    redirect("misc.cashlog")

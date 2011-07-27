@@ -22,9 +22,11 @@ def index():
     
     income = 0
     expenses = 0
+    profit = 0
     for p in inventory().products.values():
         expenses += p.total_purchase()
         income += p.income.get_balance()
+        profit += p.profit.get_balance()
 
     template_response("/page/index.mako",
         comment = document().comment,
@@ -32,7 +34,8 @@ def index():
         income = income,
         expenses = expenses,
         recievable_cash = recievable_cash,
-        cash_in_hand = cash_in_hand
+        cash_in_hand = cash_in_hand,
+        profit = profit
 
     )
 
