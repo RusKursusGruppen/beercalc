@@ -40,3 +40,8 @@
         </tr>
     </tbody>
 </table>
+<h3>Justér kassebeholdning</h3>
+<p>Skriv hvor meget du lægger i (plus) eller tager (minus) fra kassen.</p>
+<form method="post" action=${escattr(urlfor("misc.adjust_cash"))}>
+    <label for="amount">Beløb:</label> <input type="text" id="amount" name="amount" />
+</form>
