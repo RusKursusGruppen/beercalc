@@ -36,6 +36,7 @@ html {
 
 #content_container {
     border-left:1px solid #000;
+    margin-left: -1px;
 }
 #content {
     min-height:500px;
