@@ -21,7 +21,7 @@ def edit(product_id):
         notfound()
         return
 
-    purchases_iter = ((p.name, p.price, p.quantity, p.date, p.id) for p in product().list_purchases_by_date())
+    purchases_iter = ((p.name, p.price, p.quantity, p.date, p.id) for p in product.list_purchases_by_date())
 
     template_response("/page/product/edit.mako",
         id = product.id,
