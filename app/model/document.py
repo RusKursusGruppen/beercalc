@@ -26,6 +26,8 @@ class Document(object):
         self.comment = comment
         
         filepath = filepath or self.filepath
+        
+        self.filepath = filepath
 
         if filepath is None:
             raise Exception("No path specified")

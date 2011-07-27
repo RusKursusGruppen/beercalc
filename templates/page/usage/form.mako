@@ -64,9 +64,9 @@ $(document).ready(function(){
                 <td><a href=${escattr(urlfor("account.edit", id=aid))}>${escape(aname)}</a></td>
 %for pid, pname in products:
                 <td><input type="text" name="usage_${escape(aid)}_${escape(pid)}" value="0" style="width:4em" tabindex=${escattr(str(counter))} /></td>
-                <td id=${escattr("preview_" + aid)}></td>
 <% counter += 1 %>
 %endfor
+                <td id=${escattr("preview_" + aid)}></td>
             </tr>
 
 %endfor

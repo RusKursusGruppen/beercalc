@@ -15,18 +15,26 @@ class Usage(object):
         self.profits = defaultdict(int)
 
     def set_profit(self, product_id, amount):
-        product = self.inventory.get_product(product_id)
+        try:
+            product = self.inventory.get_product(product_id)
+        except KeyError:
+            return
         self.profits[product] = amount
 
     def update(self, account_id, product_id, amount):
-        account = self.accounts.get_account(account_id)
-        product = self.inventory.get_product(product_id)
+        try:
+            account = self.accounts.get_account(account_id)
+            product = self.inventory.get_product(product_id)
+        except KeyError:
+            return
+
         self.counter[account, product] += amount
         self.total_counts[product] += amount
     
     def reset(self):
         self.counter.clear()
         self.total_counts.clear()
+        self.profits.clear()
         
 
     def preview(self):
@@ -65,6 +73,13 @@ class Usage(object):
                     "count": count
                 }
                 for (account, product), count in self.counter.items()
+            ],
+            "profits": [ 
+                {
+                    "product_id": product.id,
+                    "amount": amount
+                }
+                for product, amount in self.profits.items()
             ]
         }
 
@@ -73,4 +88,6 @@ class Usage(object):
         usage = Usage(inventory, accounts)
         for c in data["counter"]:
             usage.update(c["account_id"], c["product_id"], c["count"])
+        for p in data["profits"]:
+            usage.set_profit(p["product_id"], p["amount"])
         return usage

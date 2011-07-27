@@ -97,6 +97,6 @@ def purchase_delete(product_id, purchase_id):
 
 def delete(product_id):
     product = inventory().get_product(product_id)
-    inventory.remove_product(product.id)
+    inventory().remove_product(product.id)
     document().save('Removed product "%s"' % (product.name,))
     redirect("product.browse")
