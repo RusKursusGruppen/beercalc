@@ -6,10 +6,17 @@ from app.utils.currency import parsenumber
 
 
 def new_form():
-    accounts_iter = ((a.id, a.name) for a in accounts().list_by_name())
+    accounts_list = [(a.id, a.name) for a in accounts().list_by_name()]
     products = [(a.id, a.name) for a in inventory().list_by_name()]
+    
+    if len(accounts_list) == 0:
+        return template_response("/page/usage/error_account.mako")
+    
+    if len(products) == 0:
+        return template_response("/page/usage/error_product.mako")
+
     template_response("/page/usage/form.mako",
-        accounts = accounts_iter,
+        accounts = accounts_list,
         products = products,
     )
 
