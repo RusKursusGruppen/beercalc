@@ -1,5 +1,5 @@
 <%inherit file="/main.mako" />
-<h1>Transfer</h1>
+<h1>Import/Eksport</h1>
 <h3>Eksportér</h3>
 <p>
     <a href=${escattr(urlfor("misc.export_file"))}>Download</a>

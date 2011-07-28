@@ -8,7 +8,7 @@
         ("account.browse", u"Konti"),
         ("misc.cashlog", u"Kasse"),
         ("version.browse", u"Ældre versioner"),
-        ("misc.transfer", u"Import/Export"),
+        ("misc.transfer", u"Import/Eksport"),
     )
 %>
 <head>
