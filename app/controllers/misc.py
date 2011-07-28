@@ -37,7 +37,7 @@ def transfer():
 def import_file():
     data = json.load(local.request.files.get("savefile"))
     new_doc = Document.create(data)
-    new_doc.save("Importerede dokument", "savedir/beer.save")
+    new_doc.save("Importerede dokument", "savedir/save.beer")
     set_document(new_doc)
     redirect("version.browse")
 
