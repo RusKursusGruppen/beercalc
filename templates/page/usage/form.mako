@@ -1,9 +1,7 @@
 <%inherit file="/main.mako"/>
 <h1>Ny optælling</h1>
 %if len(accounts) != 0 and len(products) != 0:
-<%
-    counter = 1
-%>
+<% counter = 1 %>
 <script type="text/javascript">
 function preview_update(){
     $.post("${urlfor("usage.preview")}",
@@ -16,16 +14,24 @@ function preview_update(){
         "json"
     )
 }
+function check_form(){
+    if ($("#usage_form .stock").val() == ""){
+        $("#stock_error").text("Du har glemt at skrive at indføre en beholdning.").show();
+        return false;
+    }
+    return true;
+}
 
 $(document).ready(function(){
     preview_update();
     $("#usage_form input[type=text]").keyup(preview_update);
+    $("#usage_form").submit(check_form);
 });
 </script>
 
-
 <form id="usage_form" action=${escattr(urlfor("usage.new_form_do"))} method="post">
     <h2>Varebeholdning</h2>
+    <p style="display:none;color:red;" id="stock_error"></p>
     <table>
         <thead>
             <tr>
@@ -38,7 +44,7 @@ $(document).ready(function(){
 %for id, name in products:
             <tr>
                 <td>${escape(name)}:</td>
-                <td><input type="text" name=${escattr("stock_" + id)} style="width:4em" tabindex="${str(counter)}" value="0" /></td>
+                <td><input type="text" class="stock" name=${escattr("stock_" + id)} style="width:4em" tabindex="${str(counter)}" value="" /></td>
 <% counter += 1 %>
                 <td><input type="text" name=${escattr("profit_" + id)} style="width:4em" tabindex="${str(counter)}" value="0"/></td>
 <% counter += 1 %>
