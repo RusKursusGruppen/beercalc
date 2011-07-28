@@ -1,7 +1,9 @@
+<%inherit file="/main.mako"/>
+<h1>Ny optælling</h1>
+%if len(accounts) != 0 and len(products) != 0:
 <%
     counter = 1
 %>
-<%inherit file="/main.mako"/>
 <script type="text/javascript">
 function preview_update(){
     $.post("${urlfor("usage.preview")}",
@@ -21,7 +23,6 @@ $(document).ready(function(){
 });
 </script>
 
-<h1>Ny optælling</h1>
 
 <form id="usage_form" action=${escattr(urlfor("usage.new_form_do"))} method="post">
     <h2>Varebeholdning</h2>
@@ -74,3 +75,16 @@ $(document).ready(function(){
 
     <input type="submit" name="submit" value="Afregn" tabindex=${escattr(str(counter))} />
 </form>
+%else:
+    <p><strong>Fejl:</strong> Du har ikke angivet nogle 
+%if len(products) == 0:
+    <a href=${escattr(urlfor("product.browse"))}>produkter</a>
+%if len(accounts) == 0:
+    eller
+%endif
+%endif
+%if len(accounts) == 0:
+    <a href=${escattr(urlfor("account.browse"))}>konti</a>
+%endif
+endnu.</p>
+%endif
