@@ -44,7 +44,7 @@ def import_file():
 def export_file():
     local.response.mimetype = "application/octet-stream"
     disp = "attachment; "
-    disp += "filename=export.beercalc; "
+    disp += "filename=export.beer; "
     rfc822_date = document().date.strftime("%a, %d %b %Y %H:%M:%S GMT")
     disp += "modification-date: %s" %(rfc822_date,)
     
