@@ -24,6 +24,9 @@ def import_do():
         m = r.search(l)
         email = m and m.group(0) or u""
         name = " ".join("".join(r.split(l, maxsplit=1)).split())
+
+        if name == u"" and email == u"":
+            continue
         if accounts().exists(name, email):
             continue
 
