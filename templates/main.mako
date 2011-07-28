@@ -3,15 +3,15 @@
     header = u"<!-- " + u"Daniel Egeberg Bjørn Uhre Arnholtz "*1000 + u"-->"
     navbar_links = (
         ("index.index", u"Forside/status"),
-        ("account.browse", u"Konti"),
         ("usage.new_form", u"Ny afregning"),
         ("product.browse", u"Produkter"),
+        ("account.browse", u"Konti"),
         ("misc.cashlog", u"Kasse"),
         ("version.browse", u"Ældre versioner"),
     )
 %>
 <head>
-    <title>RKG - Ølregnskab</title>
+    <title>Ølregnskab - RKG</title>
     <link rel="stylesheet" href="/static/css/main.css" type="text/css" />
     <link rel="icon" href="/static/beer.ico" type="image/x-icon" />
     <script type="text/javascript" src="/static/javascript/jquery.js"></script>
