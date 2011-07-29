@@ -15,6 +15,8 @@ endpoints = {
     "misc.export_file": app.controllers.misc.export_file,
     "misc.import_file": app.controllers.misc.import_file,
     "misc.transfer": app.controllers.misc.transfer,
+    "misc.enter_title_form": app.controllers.misc.enter_title_form,
+    "misc.enter_title_do": app.controllers.misc.enter_title_do,
     "account.create_form": app.controllers.account.create_form,
     "account.create_do": app.controllers.account.create_do,
     "account.browse": app.controllers.account.browse,
@@ -74,6 +76,7 @@ for method, path, endpoint in [
         ("GET", "/transfer", "misc.transfer"),
         ("GET", "/export", "misc.export_file"),
         ("POST", "/import", "misc.import_file"),
+        ("POST", "/change_title", "misc.enter_title_do"),
     ]:
     rule = werkzeug.routing.Rule(path, methods=[method], endpoint=endpoint)
     url_map.add(rule)

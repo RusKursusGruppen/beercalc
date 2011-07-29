@@ -50,3 +50,18 @@ def export_file():
     
     local.response.headers.add("Content-Disposition", disp)
     json.dump(document().export(), local.response.stream)
+
+def enter_title_form():
+    template_response("/page/enter_title.mako")
+
+def enter_title_do():
+    title = local.request.form.get("title", u"")
+
+    if len(title) == 0:
+        return redirect("misc.enter_title_form")
+    
+    document().title = title
+    document().save(u'Ændrede titel til "%s"' % (title,))
+
+    redirect("index.index")
+

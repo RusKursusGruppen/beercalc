@@ -8,7 +8,7 @@ from app.mapping import url_map, endpoints
 from app.utils.misc import local, path
 from app.utils.session import Session
 from app.model.document import Document
-
+from app.document import document
 class Application(object):
     def __init__(self, debug):
         self.debug = debug
@@ -31,7 +31,14 @@ class Application(object):
                 except NotFound:
                     endpoint = "notfound"
                     params = {}
+                
+                
+
+                if not endpoint in ("notfound", "misc.enter_title_do") and document().title == None:
+                    endpoint = "misc.enter_title_form"
+
                 local.endpoint = endpoint
+                
                 endpoints[endpoint](**params)
             except:
                 if self.debug:

@@ -18,7 +18,7 @@
     <script type="text/javascript" src="/static/javascript/jquery.js"></script>
 </head>
 <body>
-<div id="header">RKG - Ølregnskab</div>
+<div id="header">Ølregnskab - ${escape(widget.doc_title())}</div>
 <div id="page" class="yui3-g">
 
 <div class="yui3-u-1-5" id="nav_container">
