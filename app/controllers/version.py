@@ -5,6 +5,7 @@ from app.model.document import Document
 from app.document import set_document
 
 import os
+import json
 
 def browse():
     files = []
@@ -33,3 +34,14 @@ def rollback(filename):
     set_document(doc)
 
     redirect("version.browse")
+
+def export(filename):
+    doc = Document.load("savedir/" + filename)
+    local.response.mimetype = "application/octet-stream"
+    disp = "attachment; "
+    disp += "filename=export.beer; "
+    rfc822_date = doc.date.strftime("%a, %d %b %Y %H:%M:%S GMT")
+    disp += "modification-date: %s" %(rfc822_date,)
+
+    local.response.headers.add("Content-Disposition", disp)
+    json.dump(doc.export(), local.response.stream)

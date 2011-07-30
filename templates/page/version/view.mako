@@ -20,6 +20,11 @@ import app.utils.date as dateutils
     <dd>${escape(comment)}</dd>
 </dl>
 
+<h2>Handlinger</h2>
+
+<ul>
+    <li><a href=${escattr(urlfor("version.export", filename=filename))}>Eksportér</a></li>
 %if filename != "save.beer":
-<p><a href=${escattr(urlfor("version.rollback", filename=filename))}>Rul tilbage til denne version.</a></p>
+    <li><a href=${escattr(urlfor("version.rollback", filename=filename))}>Gendan.</a></li>
 %endif
+</ul>

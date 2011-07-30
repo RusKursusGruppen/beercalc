@@ -41,16 +41,6 @@ def import_file():
     set_document(new_doc)
     redirect("version.browse")
 
-def export_file():
-    local.response.mimetype = "application/octet-stream"
-    disp = "attachment; "
-    disp += "filename=export.beer; "
-    rfc822_date = document().date.strftime("%a, %d %b %Y %H:%M:%S GMT")
-    disp += "modification-date: %s" %(rfc822_date,)
-    
-    local.response.headers.add("Content-Disposition", disp)
-    json.dump(document().export(), local.response.stream)
-
 def enter_title_form():
     template_response("/page/enter_title.mako")
 

@@ -12,7 +12,6 @@ endpoints = {
     "index.index": app.controllers.index.index,
     "misc.cashlog": app.controllers.misc.cashlog,
     "misc.adjust_cash": app.controllers.misc.adjust_cash,
-    "misc.export_file": app.controllers.misc.export_file,
     "misc.import_file": app.controllers.misc.import_file,
     "misc.transfer": app.controllers.misc.transfer,
     "misc.enter_title_form": app.controllers.misc.enter_title_form,
@@ -40,6 +39,7 @@ endpoints = {
     "version.browse": app.controllers.version.browse,
     "version.view": app.controllers.version.view,
     "version.rollback": app.controllers.version.rollback,
+    "version.export": app.controllers.version.export,
     "notfound": app.controllers.notfound,
     "error": app.controllers.error,
 }
@@ -73,8 +73,8 @@ for method, path, endpoint in [
         ("GET", "/version", "version.browse"),
         ("GET", "/version/<string:filename>", "version.view"),
         ("GET", "/version/<string:filename>/rollback", "version.rollback"),
+        ("GET", "/version/<string:filename>/export", "version.export"),
         ("GET", "/transfer", "misc.transfer"),
-        ("GET", "/export", "misc.export_file"),
         ("POST", "/import", "misc.import_file"),
         ("POST", "/change_title", "misc.enter_title_do"),
     ]:
