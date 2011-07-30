@@ -57,7 +57,6 @@ class Usage(object):
                 price = product.get_price(1, usage.old_total_counts[product])
             except ZeroDivisionError:
                 price = 0
-            print "Price:", price
             data["prices"].append((id, -price))
 
         return data
