@@ -3,31 +3,9 @@
 %if len(accounts) != 0 and len(products) != 0:
 <% counter = 1 %>
 <script type="text/javascript">
-function preview_update(){
-    $.post("${urlfor("usage.preview")}",
-        $("#usage_form").serialize(),
-        function(accountlist){
-            accountlist.forEach(function(account){
-                $("#preview_" + account.id).text(account.balance);
-            });
-        },
-        "json"
-    )
-}
-function check_form(){
-    if ($("#usage_form .stock").val() == ""){
-        $("#stock_error").text("Du har glemt at skrive at indføre en beholdning.").show();
-        return false;
-    }
-    return true;
-}
-
-$(document).ready(function(){
-    preview_update();
-    $("#usage_form input[type=text]").keyup(preview_update);
-    $("#usage_form").submit(check_form);
-});
+var preview_url = "${urlfor("usage.preview")}";
 </script>
+<script type="text/javascript" src="/static/javascript/usage.js"></script>
 
 <form id="usage_form" action=${escattr(urlfor("usage.new_form_do"))} method="post">
     <h2>Varebeholdning</h2>
