@@ -11,7 +11,7 @@ function preview_update(){
 }
 function check_form(){
     if ($("#usage_form .stock").val() == ""){
-        $("#stock_error").text("Du har glemt at skrive at indføre en beholdning.").show();
+        $("#stock_error").text("Du har glemt at indføre en beholdning.").show();
         return false;
     }
     return true;
