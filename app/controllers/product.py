@@ -83,7 +83,7 @@ def purchase_do(product_id):
     purchase = Purchase(name, price, quantity)
     product.add_purchase(purchase)
 
-    document().save(u"Tilføjede indkøb '%s' til '%s'" % (product.name, name))
+    document().save(u"Tilføjede indkøb '%s' til '%s'" % (name, product.name))
     redirect("product.edit", product_id=product.id)
 
 
