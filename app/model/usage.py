@@ -12,7 +12,6 @@ class Usage(object):
         self.accounts = accounts
         self.counter = defaultdict(int)
         self.total_counts = defaultdict(int)
-        self.old_total_counts = defaultdict(int)
         self.profits = defaultdict(int)
 
     def set_profit(self, product_id, amount):
@@ -31,7 +30,6 @@ class Usage(object):
 
         self.counter[account, product] += amount
         self.total_counts[product] += amount
-        self.old_total_counts[product] += amount
     
     def reset(self):
         self.counter.clear()
@@ -41,7 +39,7 @@ class Usage(object):
 
     def preview(self):
         usage = deepcopy(self)
-        
+        old_total_counts = copy(usage.total_counts)
         usage.commit(log_transaction=False)
 
         data = {
@@ -54,7 +52,7 @@ class Usage(object):
 
         for id, product in usage.inventory.products.items():
             try:
-                price = product.get_price(1, usage.old_total_counts[product])
+                price = product.get_price(1, old_total_counts[product])
             except ZeroDivisionError:
                 price = 0
             data["prices"].append((id, -price))
@@ -62,7 +60,6 @@ class Usage(object):
         return data
 
     def commit(self, log_transaction=True):
-        self.old_total_counts = copy(self.total_counts)
         for product, amount in self.profits.items():
             product.add_profit(amount)
 
