@@ -1,10 +1,13 @@
 function preview_update(){
     $.post(preview_url,
         $("#usage_form").serialize(),
-        function(accountlist){
-            accountlist.forEach(function(account){
+        function(data){
+            data.accounts.forEach(function(account){
                 $("#preview_" + account.id).text(account.balance);
             });
+						data.prices.forEach(function(product){
+                $("#price_" + product.id).text(product.price);
+						});
         },
         "json"
     );

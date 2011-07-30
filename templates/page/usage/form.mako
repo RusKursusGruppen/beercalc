@@ -1,4 +1,7 @@
 <%inherit file="/main.mako"/>
+<%!
+    from app.utils.currency import formatcurrency
+%>
 <h1>Ny optælling</h1>
 %if len(accounts) != 0 and len(products) != 0:
 <% counter = 1 %>
@@ -16,16 +19,20 @@ var preview_url = "${urlfor("usage.preview")}";
                 <th>Produktnavn:</th>
                 <th>Beholdning:</th>
                 <th>Profit:</th>
+                <th>Pris:</th>
+                <th>Vejlederpris:</th>
             </tr>
         </thead>
         <tbody>
-%for id, name in products:
+%for id, name, fixedprice in products:
             <tr>
                 <td>${escape(name)}:</td>
                 <td><input type="text" class="stock" name=${escattr("stock_" + id)} style="width:4em" tabindex="${str(counter)}" value="" /></td>
 <% counter += 1 %>
                 <td><input type="text" name=${escattr("profit_" + id)} style="width:4em" tabindex="${str(counter)}" value="0"/></td>
 <% counter += 1 %>
+                <td id=${escattr("price_" + id)}></td>
+                <td>${escape(formatcurrency(fixedprice))}</td>
             </tr>
 %endfor
         </tbody>
@@ -36,7 +43,7 @@ var preview_url = "${urlfor("usage.preview")}";
         <thead>
             <tr>
                 <th>Konto:</th>
-%for id, name in products:
+%for id, name, fixedprice in products:
                 <th>${escape(name)}:</th>
 %endfor
                 <th>Forhåndsvisning:</th>
@@ -46,7 +53,7 @@ var preview_url = "${urlfor("usage.preview")}";
 %for aid, aname in accounts:
             <tr>
                 <td><a href=${escattr(urlfor("account.edit", id=aid))}>${escape(aname)}</a></td>
-%for pid, pname in products:
+%for pid, pname, fixedprice in products:
                 <td><input type="text" name="usage_${escape(aid)}_${escape(pid)}" value="0" style="width:4em" tabindex=${escattr(str(counter))} /></td>
 <% counter += 1 %>
 %endfor

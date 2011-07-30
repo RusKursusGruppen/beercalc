@@ -4,7 +4,7 @@ from account import Accounts, Account
 from inventory import Inventory, Product, Purchase
 from collections import defaultdict
 
-from copy import deepcopy
+from copy import deepcopy, copy
 
 class Usage(object):
     def __init__(self, inventory, accounts):
@@ -12,6 +12,7 @@ class Usage(object):
         self.accounts = accounts
         self.counter = defaultdict(int)
         self.total_counts = defaultdict(int)
+        self.old_total_counts = defaultdict(int)
         self.profits = defaultdict(int)
 
     def set_profit(self, product_id, amount):
@@ -30,6 +31,7 @@ class Usage(object):
 
         self.counter[account, product] += amount
         self.total_counts[product] += amount
+        self.old_total_counts[product] += amount
     
     def reset(self):
         self.counter.clear()
@@ -40,12 +42,28 @@ class Usage(object):
     def preview(self):
         usage = deepcopy(self)
         
-        usage.commit()
-        
-        for id, account_after in usage.accounts.accounts.items():
-            yield (id, account_after.get_balance() - self.accounts.get_account(id).get_balance())
+        usage.commit(log_transaction=False)
 
-    def commit(self):
+        data = {
+            "accounts": [],
+            "prices": [],
+        }
+
+        for id, account_after in usage.accounts.accounts.items():
+            data["accounts"].append((id, account_after.get_balance() - self.accounts.get_account(id).get_balance()))
+
+        for id, product in usage.inventory.products.items():
+            try:
+                price = product.get_price(1, usage.old_total_counts[product])
+            except ZeroDivisionError:
+                price = 0
+            print "Price:", price
+            data["prices"].append((id, -price))
+
+        return data
+
+    def commit(self, log_transaction=True):
+        self.old_total_counts = copy(self.total_counts)
         for product, amount in self.profits.items():
             product.add_profit(amount)
 
@@ -59,7 +77,8 @@ class Usage(object):
                 price = product.get_price(count, self.total_counts[product])
 
             account.add_transaction(u"Køb af %d %s" % (count, product.name,), -price)
-            product.income.add_transaction(u"Køb fra %s af %d stk." % (account.id, count), price)
+            if log_transaction:
+                product.income.add_transaction(u"Køb fra %s af %d stk." % (account.id, count), price)
             self.total_counts[product] -= count
         
         self.reset()
