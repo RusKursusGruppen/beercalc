@@ -40,7 +40,7 @@ class Usage(object):
     def preview(self):
         usage = deepcopy(self)
         old_total_counts = copy(usage.total_counts)
-        usage.commit(log_transaction=False)
+        usage.commit()
 
         data = {
             "accounts": [],
@@ -59,7 +59,7 @@ class Usage(object):
 
         return data
 
-    def commit(self, log_transaction=True):
+    def commit(self):
         for product, amount in self.profits.items():
             product.add_profit(amount)
 
@@ -73,8 +73,7 @@ class Usage(object):
                 price = product.get_price(count, self.total_counts[product])
 
             account.add_transaction(u"Køb af %d %s" % (count, product.name,), -price)
-            if log_transaction:
-                product.income.add_transaction(u"Køb fra %s af %d stk." % (account.id, count), price)
+            product.income.add_transaction(u"Køb fra %s af %d stk." % (account.id, count), price)
             self.total_counts[product] -= count
         
         self.reset()
