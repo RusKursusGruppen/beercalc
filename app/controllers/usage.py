@@ -44,10 +44,8 @@ def preview():
     usage().reset()
     update_usage_from_form()
 
-    data = usage().preview()
-
     template_response("/page/usage/preview.mako",
-        accounts = data["accounts"],
+        accounts = usage().preview(),
         prices = usage().get_approx_pricelist()
     )
 

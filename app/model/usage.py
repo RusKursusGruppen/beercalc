@@ -36,7 +36,6 @@ class Usage(object):
         self.total_counts.clear()
         self.profits.clear()
         
-    
     def get_approx_pricelist(self):
         for id, product in self.inventory.products.items():
             try:
@@ -45,17 +44,11 @@ class Usage(object):
                 yield id, 0
 
     def preview(self):
-        data = {
-            "accounts": [],
-        }
-
         usage = deepcopy(self)
         usage.commit()
 
         for id, account_after in usage.accounts.accounts.items():
-            data["accounts"].append((id, account_after.get_balance() - self.accounts.get_account(id).get_balance()))
-
-        return data
+            yield id, account_after.get_balance() - self.accounts.get_account(id).get_balance()
 
     def commit(self):
         for product, amount in self.profits.items():
