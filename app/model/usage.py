@@ -36,26 +36,24 @@ class Usage(object):
         self.total_counts.clear()
         self.profits.clear()
         
+    
+    def get_approx_pricelist(self):
+        for id, product in self.inventory.products.items():
+            try:
+                yield id, -product.get_price(1, self.total_counts[product])
+            except ZeroDivisionError:
+                yield id, 0
 
     def preview(self):
-        usage = deepcopy(self)
-        old_total_counts = copy(usage.total_counts)
-        usage.commit()
-
         data = {
             "accounts": [],
-            "prices": [],
         }
+
+        usage = deepcopy(self)
+        usage.commit()
 
         for id, account_after in usage.accounts.accounts.items():
             data["accounts"].append((id, account_after.get_balance() - self.accounts.get_account(id).get_balance()))
-
-        for id, product in usage.inventory.products.items():
-            try:
-                price = product.get_price(1, old_total_counts[product])
-            except ZeroDivisionError:
-                price = 0
-            data["prices"].append((id, -price))
 
         return data
 

@@ -48,7 +48,7 @@ def preview():
 
     template_response("/page/usage/preview.mako",
         accounts = data["accounts"],
-        prices = data["prices"]
+        prices = usage().get_approx_pricelist()
     )
 
 
