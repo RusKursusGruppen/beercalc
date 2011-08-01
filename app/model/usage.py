@@ -40,7 +40,11 @@ class Usage(object):
     def get_approx_pricelist(self):
         for id, product in self.inventory.products.items():
             try:
-                yield id, -product.get_price(1, self.total_counts[product])
+                if self.profits[product] == 0:
+                    profit = 0
+                else:
+                    profit = self.profits[product] / self.total_counts[product]
+                yield id, -(product.get_price(1, self.total_counts[product]) + profit)
             except ZeroDivisionError:
                 yield id, 0
 
