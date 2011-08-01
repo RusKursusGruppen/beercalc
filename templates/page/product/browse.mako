@@ -4,9 +4,11 @@ from app.utils.currency import formatcurrency
 <%inherit file="/main.mako"/>
 <h1>Produkter</h1>
 
-<p>
-    <a href=${escattr(urlfor("product.create_form"))}>Nyt produkt</a>
-</p>
+<nav>
+    <ul>
+        <li><a href=${escattr(urlfor("product.create_form"))}>Nyt produkt</a></li>
+    </ul>
+</nav>
 
 <table>
     <thead>

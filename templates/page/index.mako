@@ -30,6 +30,6 @@
     </tr>
     <tr>
         <td>Sidste ændring</td>
-        <td><span title=${date_str}>${date_delta}</span> (${comment})</td>
+        <td><time datetime=${date_str} title=${date_str}>${date_delta}</time> (${comment})</td>
     </tr>
 </table>

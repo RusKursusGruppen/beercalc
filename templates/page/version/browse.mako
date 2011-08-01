@@ -20,7 +20,7 @@ import app.utils.date as dateutils
 %>
         <tr>
             <td><a href=${escattr(urlfor("version.view", filename=filename))}>${escape(filename)}</a></td>
-            <td title=${date_str}>${date_delta}</td>
+            <td><time datetime=${date_str} title=${date_str}>${date_delta}</time></td>
             <td>${escape(comment)}</td>
         </tr>
 %endfor

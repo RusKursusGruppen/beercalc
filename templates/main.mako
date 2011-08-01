@@ -18,20 +18,21 @@
     <script type="text/javascript" src="/static/javascript/jquery.js"></script>
 </head>
 <body>
-<div id="header">Ølregnskab - ${escape(widget.doc_title())}</div>
+<header id="header">Ølregnskab - ${escape(widget.doc_title())}</header>
 <div id="page" class="yui3-g">
 
-<div class="yui3-u-1-5" id="nav_container">
+<nav class="yui3-u-1-5" id="nav_container">
     <ul id="nav">
 %for target, text in navbar_links:
         <li><a href=${escattr(urlfor(target))}>${escape(text)}</a></li>
 %endfor
     </ul>
-</div>
+</nav>
+
 <div class="yui3-u-4-5" id="content_container">
-<div id="content">
+<section id="content">
     ${next.body()}
-</div>
+</section>
 </div>
 </div>
 </body>

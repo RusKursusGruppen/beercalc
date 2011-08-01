@@ -28,7 +28,7 @@
     runningsum_str = escape(formatcurrency(runningsum))
 %>
         <tr>
-            <td title=${date_str}>${date_delta}</td>
+            <td><time datetime=${date_str} title=${date_str}>${date_delta}</time></td>
             <td>${description}</td>
             <td style="text-align:right;">${amount_str}</td>
             <td style="text-align:right;">${runningsum_str}</td>

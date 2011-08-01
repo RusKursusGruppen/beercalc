@@ -14,17 +14,19 @@ import app.utils.date as dateutils
     <dd>${escape(filename)}</dd>
 
     <dt>Tidspunkt:</dt>
-    <dd title=${date_str}>${date_delta}</dd>
+    <dd><time datetime=${date_str} title=${date_str}>${date_delta}</time></dd>
 
     <dt>Kommentar:</dt>
     <dd>${escape(comment)}</dd>
 </dl>
 
-<h2>Handlinger</h2>
+<nav>
+    <h2>Handlinger</h2>
 
-<ul>
-    <li><a href=${escattr(urlfor("version.export", filename=filename))}>Eksportér</a></li>
-%if filename != "save.beer":
-    <li><a href=${escattr(urlfor("version.rollback", filename=filename))}>Gendan.</a></li>
-%endif
-</ul>
+    <ul>
+        <li><a href=${escattr(urlfor("version.export", filename=filename))}>Eksportér</a></li>
+    %if filename != "save.beer":
+        <li><a href=${escattr(urlfor("version.rollback", filename=filename))}>Gendan.</a></li>
+    %endif
+    </ul>
+</nav>
