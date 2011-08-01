@@ -4,7 +4,9 @@ import app.utils.date as dateutils
 <%inherit file="/main.mako"/>
 <%
     date_delta = escape(dateutils.formatdelta(date-dateutils.now()))
-    date_str = escattr(date.strftime("%Y-%m-%dT%H:%M:%S"))
+    tz = date.strftime("%z")
+    datetime = escattr(date.strftime("%Y-%m-%dT%H:%M:%S") + "+%s:%s" % (tz[1:3], tz[-2:]))
+    date_str = escattr(date.strftime("%Y-%m-%d %H:%M:%S"))
 %>
 
 <h1>Version: ${escape(filename)}</h1>
@@ -14,7 +16,7 @@ import app.utils.date as dateutils
     <dd>${escape(filename)}</dd>
 
     <dt>Tidspunkt:</dt>
-    <dd><time datetime=${date_str} title=${date_str}>${date_delta}</time></dd>
+    <dd><time datetime=${datetime} title=${date_str}>${date_delta}</time></dd>
 
     <dt>Kommentar:</dt>
     <dd>${escape(comment)}</dd>

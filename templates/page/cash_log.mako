@@ -21,14 +21,16 @@
 %for date, description, amount in log:
 <%
     date_delta = escape(dateutils.formatdelta(date-dateutils.now()))
-    date_str = escattr(date.strftime("%Y-%m-%dT%H:%M:%S"))
+    tz = date.strftime("%z")
+    datetime = escattr(date.strftime("%Y-%m-%dT%H:%M:%S") + "+%s:%s" % (tz[1:3], tz[-2:]))
+    date_str = escattr(date.strftime("%Y-%m-%d %H:%M:%S"))
     description = escape(description)
     amount_str = escape(formatcurrency(amount))
     runningsum += amount
     runningsum_str = escape(formatcurrency(runningsum))
 %>
         <tr>
-            <td><time datetime=${date_str} title=${date_str}>${date_delta}</time></td>
+            <td><time datetime=${datetime} title=${date_str}>${date_delta}</time></td>
             <td>${description}</td>
             <td class="money">${amount_str}</td>
             <td class="money">${runningsum_str}</td>
