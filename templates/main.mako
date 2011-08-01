@@ -13,6 +13,7 @@
 %>
 <head>
     <title>Ølregnskab - ${escape(widget.doc_title())}</title>
+    <link rel="stylesheet" href="/static/css/yui.css" type="text/css" />
     <link rel="stylesheet" href="/static/css/main.css" type="text/css" />
     <link rel="icon" href="/static/beer.ico" type="image/x-icon" />
     <script type="text/javascript" src="/static/javascript/jquery.js"></script>
