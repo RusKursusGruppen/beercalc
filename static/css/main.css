@@ -73,7 +73,7 @@ html {
 .transaction_log {
     width: 100%;
 }
-.transaction_log .summary {
+.summary {
     border-top: 3px solid #000;
 }
 

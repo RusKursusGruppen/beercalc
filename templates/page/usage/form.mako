@@ -1,12 +1,17 @@
 <%inherit file="/main.mako"/>
 <%!
     from app.utils.currency import formatcurrency
+%><%
+product_ids = ",".join(escattr(id) for id, name, fixedprice in products)
+account_ids = ",".join(escattr(id) for id, name in accounts)
 %>
 <h1>Ny optælling</h1>
 %if len(accounts) != 0 and len(products) != 0:
 <% counter = 1 %>
 <script type="text/javascript">
 var preview_url = "${urlfor("usage.preview")}";
+var product_ids = new Array(${product_ids});
+var account_ids = new Array(${account_ids});
 </script>
 <script type="text/javascript" src="/static/javascript/usage.js"></script>
 
@@ -62,6 +67,15 @@ var preview_url = "${urlfor("usage.preview")}";
 
 %endfor
         </tbody>
+        <tfoot>
+            <tr class="summary">
+                <td>Total:</td>
+%for id, name, fixedprice in products:
+                <td id=${escattr("total_"+id)}>0</td>
+%endfor
+                <td class="money" id="preview_total">${escape(formatcurrency(0))}</td>
+            </tr>
+        </tfoot>
     </table>
 
     <input type="submit" name="submit" value="Afregn" tabindex=${escattr(str(counter))} />
