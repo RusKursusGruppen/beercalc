@@ -1,25 +1,18 @@
 # -*- coding: utf-8 -*-
 from app.utils.misc import template_response, local, urlfor, redirect
 
-from app.model.account import Account
-
-import re
-from app.utils.currency import parsenumber
-
 from app.document import accounts, document, inventory
-
 
 
 def index():
     cash_in_hand = document().cash_in_hand.get_balance()
-    
 
     recievable_cash = 0
     for a in accounts().accounts.values():
         b = a.get_balance()
         if b < 0:
             recievable_cash += abs(b)
-    
+
     income = 0
     expenses = 0
     profit = 0
@@ -38,4 +31,3 @@ def index():
         profit = profit
 
     )
-

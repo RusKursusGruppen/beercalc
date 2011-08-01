@@ -3,16 +3,16 @@ from app.utils.misc import template_response, local, urlfor, redirect
 
 from app.controllers import notfound
 from app.model.inventory import Product, Purchase
-
+from app.utils.currency import parsenumber
 from app.document import inventory, document
 
-from app.utils.currency import parsenumber
 
 def browse():
     products = [(a.id, a.name, a.total_purchase(), a.fixedprice, a.get_fixedprice(1)) for a in inventory().list_by_name()]
     template_response("/page/product/browse.mako",
         products = products,
     )
+
 
 def edit(product_id):
     try:
@@ -29,6 +29,7 @@ def edit(product_id):
         fixedprice = product.fixedprice,
         purchases = purchases_iter
     )
+
 
 def edit_do(product_id):
     try:
@@ -50,8 +51,10 @@ def edit_do(product_id):
 
     redirect("product.edit", product_id=product_id)
 
+
 def create_form():
     template_response("/page/product/create.mako")
+
 
 def create_do():
     name = local.request.form.get("name", u"")
@@ -68,12 +71,14 @@ def create_do():
 
     redirect("product.edit", product_id=product.id)
 
+
 def purchase_form(product_id):
     product = inventory().get_product(product_id)
     template_response("/page/product/purchase_form.mako",
         product_id = product.id,
         product_name = product.name,
     )
+
 
 def purchase_do(product_id):
     try:

@@ -9,6 +9,8 @@ from app.utils.misc import local, path
 from app.utils.session import Session
 from app.model.document import Document
 from app.document import document
+
+
 class Application(object):
     def __init__(self, debug):
         self.debug = debug
@@ -18,7 +20,7 @@ class Application(object):
         except IOError:
             self.document = Document()
             self.document.save(filepath="savedir/save.beer", comment=u"New file")
-    
+
     def dispatch(self, environ, start_response):
         try:
             local.request = Request(environ)
@@ -31,14 +33,12 @@ class Application(object):
                 except NotFound:
                     endpoint = "notfound"
                     params = {}
-                
-                
 
                 if not endpoint in ("notfound", "misc.enter_title_do") and document().title == None:
                     endpoint = "misc.enter_title_form"
 
                 local.endpoint = endpoint
-                
+
                 endpoints[endpoint](**params)
             except:
                 if self.debug:
@@ -46,12 +46,13 @@ class Application(object):
                 endpoints["error"]()
             response = local.response
             local.session.set_cookie(local.response)
-        except: 
+        except:
             if self.debug:
                 raise
             response = Response("Fejlsidens fejlside.")
-            
-        return response(environ, start_response)        
+
+        return response(environ, start_response)
+
     def __call__(self, environ, start_response):
         local.application = self
         return self.dispatch(environ, start_response)

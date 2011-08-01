@@ -26,12 +26,15 @@ template_lookup = mako.lookup.TemplateLookup(
     strict_undefined=True
 )
 
+
 def urlfor(endpoint, method=None, _external=False, **values):
     return local.url_adapter.build(endpoint, values, method=method, force_external=_external)
+
 
 def template_response(templatename, **kwargs):
     kwargs["response"] = local.response
     local.response.data = template_render(templatename, **kwargs)
+
 
 def template_render(templatename, **kwargs):
     template = template_lookup.get_template(templatename)
@@ -45,6 +48,7 @@ def template_render(templatename, **kwargs):
         "widget": app.widget
     })
     return template.render(**kwargs).decode("utf-8")
+
 
 def redirect(endpoint, *args, **kwargs):
     local.response = werkzeug.utils.redirect(urlfor(endpoint, *args, **kwargs))

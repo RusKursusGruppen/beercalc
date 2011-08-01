@@ -7,6 +7,7 @@ from app.document import set_document
 import os
 import json
 
+
 def browse():
     files = []
     for f in filter(lambda x: x != '.placeholder', os.listdir('savedir')):
@@ -19,6 +20,7 @@ def browse():
         files=files
     )
 
+
 def view(filename):
     doc = Document.load("savedir/" + filename)
     template_response("/page/version/view.mako",
@@ -27,13 +29,16 @@ def view(filename):
         comment=doc.comment
     )
 
+
 def rollback(filename):
     doc = Document.load("savedir/" + filename)
-    doc.save("Rullede tilbage til version '%s'" % (filename.replace("save.beer.", ""), ), "savedir/save.beer")
+    doc.save("Rullede tilbage til version '%s'"
+            % (filename.replace("save.beer.", ""), ), "savedir/save.beer")
 
     set_document(doc)
 
     redirect("version.browse")
+
 
 def export(filename):
     doc = Document.load("savedir/" + filename)
@@ -41,7 +46,7 @@ def export(filename):
     disp = "attachment; "
     disp += "filename=export.beer; "
     rfc822_date = doc.date.strftime("%a, %d %b %Y %H:%M:%S GMT")
-    disp += "modification-date: %s" %(rfc822_date,)
+    disp += "modification-date: %s" % (rfc822_date,)
 
     local.response.headers.add("Content-Disposition", disp)
     json.dump(doc.export(), local.response.stream)

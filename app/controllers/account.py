@@ -1,24 +1,28 @@
 # -*- coding: utf-8 -*-
 from app.utils.misc import template_response, local, urlfor, redirect
 
+from app.controllers import notfound
 from app.model.account import Account
-
-import re
+from app.document import accounts, document
 from app.utils.currency import parsenumber
 
-from app.document import accounts, document
+import re
+
+
 def browse():
     accounts_iter = ((a.id, a.name, a.get_balance()) for a in accounts().list_by_name())
     template_response("/page/account/browse.mako",
         accounts = accounts_iter,
     )
 
+
 def import_form():
     template_response("/page/account/import_form.mako")
 
+
 def import_do():
     r = re.compile(r'\S+@\S+', re.UNICODE)
-    
+
     count = 0
     for l in local.request.form.get("data", u"").split("\n"):
         m = r.search(l)
@@ -33,7 +37,7 @@ def import_do():
         count += 1
         account = Account(name=name, email=email)
         accounts().add_account(account)
-    
+
     if count == 1:
         document().save("Kontoimport (%d konto)" % (count,))
     else:
@@ -48,7 +52,7 @@ def edit(id):
     except KeyError:
         return notfound()
     transactions = account.transactions
-    
+
     transactions = ((t.date, t.description, t.amount) for t in transactions)
     template_response("/page/account/edit.mako",
         id = id,
@@ -58,6 +62,8 @@ def edit(id):
         istutor = account.istutor,
         transactions = transactions
     )
+
+
 def edit_do(id):
     try:
         account = accounts().get_account(id)
@@ -72,7 +78,7 @@ def edit_do(id):
     account.email = email
     account.istutor = istutor
 
-    document().save(u'Ændrede data for konto "%s"'  % (name,))
+    document().save(u'Ændrede data for konto "%s"' % (name,))
 
     redirect("account.edit", id=id)
 
@@ -80,17 +86,19 @@ def edit_do(id):
 def create_form():
     template_response("/page/account/create.mako")
 
+
 def create_do():
     istutor = "istutor" in local.request.form
     email = local.request.form.get("email", u"")
     name = local.request.form.get("name", u"")
-    
+
     account = Account(name=name, email=email, istutor=istutor)
-    
+
     accounts().add_account(account)
-    
+
     document().save(u'Oprettede kontoen "%s"' % (name,))
     redirect("account.browse")
+
 
 def payment(id):
     def fail(msg=u""):
@@ -113,8 +121,6 @@ def payment(id):
     else:
         account.add_transaction(u"Indbetaling", amount)
         document().cash_in_hand.add_transaction(u'Indbetaling "%s"' % (account.name,), amount)
-    
 
     document().save(u'Ind-/udbetaling på konto "%s"' % (account.name,))
     return redirect("account.edit", id=id)
-    template_response("/page/test.mako", test=amount)

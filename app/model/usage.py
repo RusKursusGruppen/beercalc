@@ -6,6 +6,7 @@ from collections import defaultdict
 
 from copy import deepcopy, copy
 
+
 class Usage(object):
     def __init__(self, inventory, accounts):
         self.inventory = inventory
@@ -30,12 +31,12 @@ class Usage(object):
 
         self.counter[account, product] += amount
         self.total_counts[product] += amount
-    
+
     def reset(self):
         self.counter.clear()
         self.total_counts.clear()
         self.profits.clear()
-        
+
     def get_approx_pricelist(self):
         for id, product in self.inventory.products.items():
             try:
@@ -57,7 +58,7 @@ class Usage(object):
         for (account, product), count in sorted(self.counter.items(), key=lambda x: x[0][0].name):
             if count == 0:
                 continue
-        
+
             if account.istutor:
                 price = product.get_fixedprice(count)
             else:
@@ -66,7 +67,7 @@ class Usage(object):
             account.add_transaction(u"Køb af %d %s" % (count, product.name,), -price)
             product.income.add_transaction(u"Køb fra %s af %d stk." % (account.id, count), price)
             self.total_counts[product] -= count
-        
+
         self.reset()
 
     def export(self):
@@ -79,7 +80,7 @@ class Usage(object):
                 }
                 for (account, product), count in self.counter.items()
             ],
-            "profits": [ 
+            "profits": [
                 {
                     "product_id": product.id,
                     "amount": amount

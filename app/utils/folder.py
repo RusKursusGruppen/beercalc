@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 import os
 
-# Recursively return file paths in a directory
+
 def get_files(directory):
+    """Recursively return file paths in a directory"""
     dir = os.listdir(directory)
     dir = [os.path.join(directory, entry) for entry in dir]
     files = filter(os.path.isfile, dir)

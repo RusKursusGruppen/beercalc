@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
+
 def parsenumber(text):
     text = text.strip()
-    
+
     if len(text) == 0:
         return
 
@@ -23,8 +24,10 @@ def parsenumber(text):
         return -number
     return number
 
+
 def formatcurrency(integer):
     return formatnumber(integer) + u" kr."
+
 
 def formatnumber(integer):
     prefix = u""
@@ -37,10 +40,10 @@ def formatnumber(integer):
 
     # Add thousands seperator
     integer = integer[::-1]
-    integer = u".".join(integer[i:i+3] for i in range(0, len(integer), 3))
+    integer = u".".join(integer[i:i + 3] for i in range(0, len(integer), 3))
     integer = integer[::-1]
-    
-    # Zero pad 
+
+    # Zero pad
     fraction = (u"0" + fraction)[-2:]
-    
+
     return prefix + integer + u"," + fraction
