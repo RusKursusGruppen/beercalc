@@ -41,7 +41,7 @@ html {
     color:#000;
     display:block;
     border-bottom:1px solid #000;
-    padding:10px;
+    padding:10px 30px;
 }
 #nav > li > a:hover {
     color:#FFF;
@@ -80,4 +80,31 @@ html {
 #stock_error {
     color: red;
     display: none;
+}
+
+#nav li {
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+}
+
+#nav_home {
+    background-image: url(/static/images/house.png);
+}
+#nav_usage {
+    background-image: url(/static/images/pencil.png);
+}
+#nav_products {
+    background-image: url(/static/images/drink.png);
+}
+#nav_accounts {
+    background-image: url(/static/images/group.png);
+}
+#nav_cash {
+    background-image: url(/static/images/coins.png);
+}
+#nav_versions {
+    background-image: url(/static/images/time.png);
+}
+#nav_import {
+    background-image: url(/static/images/database_refresh.png);
 }

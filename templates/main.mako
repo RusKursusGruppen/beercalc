@@ -2,13 +2,13 @@
 <%!
     header = u"<!-- " + u"Daniel Egeberg Bjørn Uhre Arnholtz "*1000 + u"-->"
     navbar_links = (
-        ("index.index", u"Forside/status"),
-        ("usage.new_form", u"Ny afregning"),
-        ("product.browse", u"Produkter"),
-        ("account.browse", u"Konti"),
-        ("misc.cashlog", u"Kasse"),
-        ("version.browse", u"Ældre versioner"),
-        ("misc.transfer", u"Import/Eksport"),
+        ("index.index", u"Forside/status", "home"),
+        ("usage.new_form", u"Ny afregning", "usage"),
+        ("product.browse", u"Produkter", "products"),
+        ("account.browse", u"Konti", "accounts"),
+        ("misc.cashlog", u"Kasse", "cash"),
+        ("version.browse", u"Ældre versioner", "versions"),
+        ("misc.transfer", u"Import/Eksport", "import"),
     )
 %>
 <head>
@@ -26,8 +26,8 @@
 
 <nav class="yui3-u-1-5" id="nav_container">
     <ul id="nav">
-%for target, text in navbar_links:
-        <li><a href=${escattr(urlfor(target))}>${escape(text)}</a></li>
+%for target, text, id in navbar_links:
+        <li id=${escattr("nav_"+id)}><a href=${escattr(urlfor(target))}>${escape(text)}</a></li>
 %endfor
     </ul>
 </nav>
