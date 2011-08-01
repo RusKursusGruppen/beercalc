@@ -1,4 +1,4 @@
-#!/usr/bin/python2 -B
+#!/usr/bin/python2
 # -*- coding: utf-8 -*-
 import sys
 from os.path import dirname, join, realpath
