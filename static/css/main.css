@@ -45,7 +45,7 @@ html {
 }
 #nav > li > a:hover {
     color:#FFF;
-    background:#000;
+    background-color:#000;
 }
 
 #content_container {
@@ -82,29 +82,29 @@ html {
     display: none;
 }
 
-#nav li {
+#nav a {
     background-position: 10px 10px;
     background-repeat: no-repeat;
 }
 
-#nav_home {
+#nav_home a {
     background-image: url(/static/images/house.png);
 }
-#nav_usage {
+#nav_usage a {
     background-image: url(/static/images/pencil.png);
 }
-#nav_products {
+#nav_products a {
     background-image: url(/static/images/drink.png);
 }
-#nav_accounts {
+#nav_accounts a {
     background-image: url(/static/images/group.png);
 }
-#nav_cash {
+#nav_cash a {
     background-image: url(/static/images/coins.png);
 }
-#nav_versions {
+#nav_versions a {
     background-image: url(/static/images/time.png);
 }
-#nav_import {
+#nav_import a {
     background-image: url(/static/images/database_refresh.png);
 }
