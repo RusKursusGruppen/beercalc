@@ -26,6 +26,9 @@ function preview_update(){
 function check_form(){
     if ($("#usage_form .stock").val() == ""){
         $("#stock_error").text("Du har glemt at indføre en beholdning.").show();
+        $('html, body').stop().animate({
+            scrollTop: $("#stock_error").offset().top
+        }, 500);
         return false;
     }
     return true;
