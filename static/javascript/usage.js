@@ -20,7 +20,7 @@ function preview_update(){
         account_ids.forEach(function(aid) {
             usage += parseInt($("input[name=usage_"+aid+"_"+pid+"]").val());
         });
-        $("#total_"+pid).text(usage);
+        $("#total_"+pid).text(formatnumber(usage));
     });
 }
 function check_form(){
