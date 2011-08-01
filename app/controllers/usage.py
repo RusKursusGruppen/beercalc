@@ -7,7 +7,7 @@ from app.utils.currency import parsenumber
 
 def new_form():
     accounts_list = [(a.id, a.name) for a in accounts().list_by_name()]
-    products = [(a.id, a.name, a.get_fixedprice(1))for a in inventory().list_by_name()]
+    products = [(a.id, a.name, a.get_fixedprice(1)) for a in inventory().list_by_name()]
 
     template_response("/page/usage/form.mako",
         accounts = accounts_list,
