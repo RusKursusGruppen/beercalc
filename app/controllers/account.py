@@ -43,7 +43,10 @@ def import_do():
 
 
 def edit(id):
-    account = accounts().get_account(id)
+    try:
+        account = accounts().get_account(id)
+    except KeyError:
+        return notfound()
     transactions = account.transactions
     
     transactions = ((t.date, t.description, t.amount) for t in transactions)
@@ -56,12 +59,15 @@ def edit(id):
         transactions = transactions
     )
 def edit_do(id):
+    try:
+        account = accounts().get_account(id)
+    except KeyError:
+        return notfound()
+
     istutor = "istutor" in local.request.form
     email = local.request.form.get("email", u"")
     name = local.request.form.get("name", u"")
-    
-    account = accounts().get_account(id)
-    
+
     account.name = name
     account.email = email
     account.istutor = istutor
@@ -90,14 +96,17 @@ def payment(id):
     def fail(msg=u""):
         return redirect("account.edit", id=id)
 
+    try:
+        account = accounts().get_account(id)
+    except KeyError:
+        return notfound()
+
     amount = local.request.form.get("amount")
     amount = amount and parsenumber(amount)
 
     if amount == None:
         return fail()
 
-    account = accounts().get_account(id)
-    
     if amount < 0:
         account.add_transaction(u"Udbetaling", amount)
         document().cash_in_hand.add_transaction(u'Udbetaling "%s"' % (account.name,), amount)

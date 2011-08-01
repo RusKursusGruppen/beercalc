@@ -18,8 +18,7 @@ def edit(product_id):
     try:
         product = inventory().get_product(product_id)
     except KeyError:
-        notfound()
-        return
+        return notfound()
 
     purchases_iter = ((p.name, p.price, p.quantity, p.date, p.id) for p in product.list_purchases_by_date())
 
@@ -32,14 +31,17 @@ def edit(product_id):
     )
 
 def edit_do(product_id):
+    try:
+        product = inventory().get_product(product_id)
+    except KeyError:
+        return notfound()
+
     name = local.request.form.get("name", u"")
     fixedprice = local.request.form.get("fixedprice", u"")
     if len(fixedprice) == 0:
         fixedprice = None
     else:
         fixedprice = parsenumber(fixedprice)
-
-    product = inventory().get_product(product_id)
 
     product.name = name
     product.fixedprice = fixedprice
@@ -74,7 +76,10 @@ def purchase_form(product_id):
     )
 
 def purchase_do(product_id):
-    product = inventory().get_product(product_id)
+    try:
+        product = inventory().get_product(product_id)
+    except KeyError:
+        return notfound()
 
     name = local.request.form.get("name", u"")
     quantity = int(local.request.form.get("quantity", u"0"))
@@ -88,15 +93,23 @@ def purchase_do(product_id):
 
 
 def purchase_delete(product_id, purchase_id):
-    product = inventory().get_product(product_id)
-    purchase = product.get_purchase(purchase_id)
+    try:
+        product = inventory().get_product(product_id)
+        purchase = product.get_purchase(purchase_id)
+    except KeyError:
+        return notfound()
 
     product.remove_purchase(purchase.id)
     document().save(u'Fjernede indkøb "%s" fra produkt "%s"' % (product.name, purchase.name))
     redirect("product.edit", product_id=product_id)
 
+
 def delete(product_id):
-    product = inventory().get_product(product_id)
+    try:
+        product = inventory().get_product(product_id)
+    except KeyError:
+        return notfound()
+
     inventory().remove_product(product.id)
     document().save(u'Tilføjede "%s"' % (product.name,))
     redirect("product.browse")
