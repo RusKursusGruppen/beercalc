@@ -5,10 +5,6 @@
     <link rel="icon" href="/static/beer.ico" type="image/x-icon" />
     <script type="text/javascript" src="/static/javascript/jquery.js"></script>
 </head>
-<body>
-<head>
-    <title>Indtast titel på regnskabet</title>
-</head>
 <body id="enter_title">
 <form action=${escattr(urlfor("misc.enter_title_do"))} method="post" id="enter_title_form">
     <h1>Indtast navn</h1>
