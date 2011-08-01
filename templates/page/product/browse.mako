@@ -15,15 +15,19 @@ from app.utils.currency import formatcurrency
         <tr>
             <th>Navn:</th>
             <th>Samlet udgift:</th>
+            <th>Enheder indkøbt:</th>
+            <th>Enheder solgt:</th>
             <th>Vejlederpris:</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-%for id, name, total_purchase, fixedprice, real_fixedprice in products:
+%for id, name, total_purchase, fixedprice, real_fixedprice, units_bought, units_sold in products:
         <tr>
             <td><a href=${escattr(urlfor("product.edit", product_id=id))}>${escape(name)}</a></td>
             <td class="money">${escape(formatcurrency(total_purchase))}</td>
+            <td>${str(units_bought)}</td>
+            <td>${str(units_sold)}</td>
 %if fixedprice is None:
             <td class="money dynamic" title="Dynamisk">${escape(formatcurrency(real_fixedprice))}</td>
 %else:

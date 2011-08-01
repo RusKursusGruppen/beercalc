@@ -8,7 +8,7 @@ from app.document import inventory, document
 
 
 def browse():
-    products = [(a.id, a.name, a.total_purchase(), a.fixedprice, a.get_fixedprice(1)) for a in inventory().list_by_name()]
+    products = [(a.id, a.name, a.total_purchase(), a.fixedprice, a.get_fixedprice(1), a.total_quantity(), a.total_quantity() - a.stock) for a in inventory().list_by_name()]
     template_response("/page/product/browse.mako",
         products = products,
     )
