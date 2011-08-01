@@ -1,0 +1,14 @@
+v0.2 (TBA)
+----------
+ * Improved error handling and input validation.
+ * Added document title.
+ * Added documentation to account import.
+ * Added document import/export.
+ * Added preview of the calculated product unit price.
+ * Added sales information to product list.
+ * Fixed various UI issues.
+
+
+v0.1 (2011-07-27)
+-----------------
+ * First release. No changes.
