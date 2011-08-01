@@ -116,5 +116,5 @@ def delete(product_id):
         return notfound()
 
     inventory().remove_product(product.id)
-    document().save(u'Tilføjede "%s"' % (product.name,))
+    document().save(u'Fjernede "%s"' % (product.name,))
     redirect("product.browse")
