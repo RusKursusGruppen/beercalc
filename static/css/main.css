@@ -56,3 +56,28 @@ html {
     min-height:500px;
     padding: 20px 20px 50px 20px;
 }
+
+.balance_positive {
+    background: #8F8;
+}
+.balance_negative {
+    background: #F88;
+}
+.money {
+    text-align: right;
+}
+.money.dynamic {
+    color: #888;
+}
+
+.transaction_log {
+    width: 100%;
+}
+.transaction_log .summary {
+    border-top: 3px solid #000;
+}
+
+#stock_error {
+    color: red;
+    display: none;
+}

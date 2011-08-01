@@ -45,7 +45,7 @@ from app.utils.currency import formatcurrency, formatnumber
 %>
         <tr>
             <td>${escape(pname)}</td>
-            <td>${escape(formatcurrency(price))}</td>
+            <td class="money">${escape(formatcurrency(price))}</td>
             <td>${str(quantity)}</td>
             <td><time datetime=${date_str} title=${date_str}>${date_delta}</time></td>
             <td><a href=${escattr(urlfor("product.purchase_delete", purchase_id = purchase_id, product_id = id))}>[Slet]</a>

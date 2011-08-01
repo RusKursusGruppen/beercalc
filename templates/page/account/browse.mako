@@ -19,16 +19,16 @@ from app.utils.currency import formatcurrency
     <tbody>
 %for id, name, balance in accounts:
 %if balance < 0:
-    <tr style="background:#F88;">
+        <tr class="balance_negative">
 %else:
-    <tr style="background:#8F8;">
+        <tr class="balance_positive">
 %endif
 %if len(name) == 0:
-        <td><a href=${escattr(urlfor("account.edit", id=id))}>[Tomt Navn]</a></td>
+            <td><a href=${escattr(urlfor("account.edit", id=id))}>[Tomt Navn]</a></td>
 %else:
-        <td><a href=${escattr(urlfor("account.edit", id=id))}>${escape(name)}</a></td>
+            <td><a href=${escattr(urlfor("account.edit", id=id))}>${escape(name)}</a></td>
 %endif
-            <td style="text-align:right;">${escape(formatcurrency(balance))}</td>
+            <td class="money">${escape(formatcurrency(balance))}</td>
         </tr>
 %endfor
     </tbody>

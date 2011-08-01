@@ -63,7 +63,7 @@ balance_str = escape(formatcurrency(balance))
 </form>
 
 <h3>Transaktioner</h3>
-<table style="width:100%;">
+<table class="transaction_log">
     <thead>
         <tr>
             <th>Tidspunkt</th>
@@ -85,13 +85,13 @@ balance_str = escape(formatcurrency(balance))
         <tr>
             <td><time datetime=${date_str} title=${date_str}>${date_delta}</time></td>
             <td>${description}</td>
-            <td style="text-align:right;">${amount_str}</td>
-            <td style="text-align:right;">${runningsum_str}</td>
+            <td class="money">${amount_str}</td>
+            <td class="money">${runningsum_str}</td>
         </tr>
 %endfor
-        <tr style="border-top:3px solid #000;">
+        <tr class="summary">
             <td colspan="2">Balance</td>
-            <td style="text-align:right;" colspan="2">${balance_str}</td>
+            <td class="money" colspan="2">${balance_str}</td>
         </tr>
     </tbody>
 </table>

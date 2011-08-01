@@ -12,7 +12,7 @@ var preview_url = "${urlfor("usage.preview")}";
 
 <form id="usage_form" action=${escattr(urlfor("usage.new_form_do"))} method="post">
     <h2>Varebeholdning</h2>
-    <p style="display:none;color:red;" id="stock_error"></p>
+    <p id="stock_error"></p>
     <table>
         <thead>
             <tr>
@@ -31,8 +31,8 @@ var preview_url = "${urlfor("usage.preview")}";
 <% counter += 1 %>
                 <td><input type="text" name=${escattr("profit_" + id)} style="width:4em" tabindex="${str(counter)}" value="0"/></td>
 <% counter += 1 %>
-                <td id=${escattr("price_" + id)}></td>
-                <td>${escape(formatcurrency(fixedprice))}</td>
+                <td class="money" id=${escattr("price_" + id)}></td>
+                <td class="money">${escape(formatcurrency(fixedprice))}</td>
             </tr>
 %endfor
         </tbody>
@@ -57,7 +57,7 @@ var preview_url = "${urlfor("usage.preview")}";
                 <td><input type="text" name="usage_${escape(aid)}_${escape(pid)}" value="0" style="width:4em" tabindex=${escattr(str(counter))} /></td>
 <% counter += 1 %>
 %endfor
-                <td id=${escattr("preview_" + aid)}></td>
+                <td class="money" id=${escattr("preview_" + aid)}></td>
             </tr>
 
 %endfor

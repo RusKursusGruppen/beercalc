@@ -22,11 +22,11 @@ from app.utils.currency import formatcurrency
 %for id, name, total_purchase, fixedprice, real_fixedprice in products:
         <tr>
             <td><a href=${escattr(urlfor("product.edit", product_id=id))}>${escape(name)}</td>
-            <td style="text-align:right;">${escape(formatcurrency(total_purchase))}</td>
+            <td class="money">${escape(formatcurrency(total_purchase))}</td>
 %if fixedprice is None:
-            <td>${escape(formatcurrency(real_fixedprice))} <span style="font-style:italic">(Dynamisk)</span></td>
+            <td class="money dynamic" title="Dynamisk">${escape(formatcurrency(real_fixedprice))}</td>
 %else:
-            <td>${escape(formatcurrency(fixedprice))}</td>
+            <td class="money">${escape(formatcurrency(fixedprice))}</td>
 %endif
             <td><a href=${escattr(urlfor("product.delete", product_id=id))}>[Slet]</a></td>
         </tr>
