@@ -48,9 +48,9 @@ balance_str = escape(formatcurrency(balance))
         </td>
         <td>
 %if istutor:
-            <input type="checkbox" checked="checked" name="istutor" />
+            <input type="checkbox" checked="checked" id="istutor" name="istutor" />
 %else:
-            <input type="checkbox" name="istutor" />
+            <input type="checkbox" id="istutor" name="istutor" />
 %endif
         </td>
     </tr>
@@ -76,7 +76,7 @@ balance_str = escape(formatcurrency(balance))
 %for date, description, amount in transactions:
 <%
     date_delta = escape(dateutils.formatdelta(date-dateutils.now()))
-    date_str = escattr(date.strftime("%d/%m-%Y %H:%M:%S"))
+    date_str = escattr(date.strftime("%Y-%m-%dT%H:%M:%S"))
     description = escape(description)
     amount_str = escape(formatcurrency(amount))
     runningsum += amount

@@ -16,12 +16,13 @@ from app.utils.currency import formatcurrency
             <th>Navn:</th>
             <th>Samlet udgift:</th>
             <th>Vejlederpris:</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
 %for id, name, total_purchase, fixedprice, real_fixedprice in products:
         <tr>
-            <td><a href=${escattr(urlfor("product.edit", product_id=id))}>${escape(name)}</td>
+            <td><a href=${escattr(urlfor("product.edit", product_id=id))}>${escape(name)}</a></td>
             <td class="money">${escape(formatcurrency(total_purchase))}</td>
 %if fixedprice is None:
             <td class="money dynamic" title="Dynamisk">${escape(formatcurrency(real_fixedprice))}</td>

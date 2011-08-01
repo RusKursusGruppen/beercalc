@@ -5,7 +5,7 @@
 %>
 <%
     date_delta = escape(dateutils.formatdelta(date-dateutils.now()))
-    date_str = escattr(date.strftime("%d/%m-%Y %H:%M:%S"))
+    date_str = escattr(date.strftime("%Y-%m-%dT%H:%M:%S"))
 %>
 <h1>Velkommen til beercalc</h1>
 

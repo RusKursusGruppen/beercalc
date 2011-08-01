@@ -35,13 +35,14 @@ from app.utils.currency import formatcurrency, formatnumber
             <th>Pris:</th>
             <th>Antal:</th>
             <th>Dato:</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
 %for pname, price, quantity, date, purchase_id in purchases:
 <%
     date_delta = escape(dateutils.formatdelta(date-dateutils.now()))
-    date_str = escattr(date.strftime("%d/%m-%Y %H:%M:%S"))
+    date_str = escattr(date.strftime("%Y-%m-%dT%H:%M:%S"))
 %>
         <tr>
             <td>${escape(pname)}</td>

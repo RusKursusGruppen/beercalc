@@ -12,6 +12,7 @@
     )
 %>
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Ølregnskab - ${escape(widget.doc_title())}</title>
     <link rel="stylesheet" href="/static/css/yui.css" type="text/css" />
     <link rel="stylesheet" href="/static/css/main.css" type="text/css" />
