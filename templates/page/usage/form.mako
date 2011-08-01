@@ -5,7 +5,7 @@
 product_ids = ",".join(escattr(id) for id, name, fixedprice in products)
 account_ids = ",".join(escattr(id) for id, name in accounts)
 %>
-<h1>Ny optælling</h1>
+<h1>Ny afregning</h1>
 %if len(accounts) != 0 and len(products) != 0:
 <% counter = 1 %>
 <script type="text/javascript">
