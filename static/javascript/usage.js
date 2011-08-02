@@ -88,8 +88,6 @@ function check_form(){
         return false;
     }
     return true;
-
-    return false; console.log(errors);
 }
 
 $(document).ready(function(){
