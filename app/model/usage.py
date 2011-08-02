@@ -23,6 +23,8 @@ class Usage(object):
         self.profits[product] = amount
 
     def update(self, account_id, product_id, amount):
+        if amount < 0:
+            raise ValueError("Amount cannot be negative")
         try:
             account = self.accounts.get_account(account_id)
             product = self.inventory.get_product(product_id)
@@ -39,14 +41,12 @@ class Usage(object):
 
     def get_approx_pricelist(self):
         for id, product in self.inventory.products.items():
-            try:
-                if self.profits[product] == 0:
-                    profit = 0
-                else:
-                    profit = self.profits[product] / self.total_counts[product]
-                yield id, -(product.get_price(1, self.total_counts[product]) + profit)
-            except ZeroDivisionError:
+            totalcount = self.total_counts[product]
+            if totalcount == 0:
                 yield id, 0
+            else:
+                profit = self.profits[product] / totalcount
+                yield id, -(product.get_price(1, totalcount) + profit)
 
     def preview(self):
         usage = deepcopy(self)
