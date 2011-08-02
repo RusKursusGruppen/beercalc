@@ -34,7 +34,7 @@ class Inventory(object):
 
 
 class Product(object):
-    def __init__(self, name=u"", stock=0, income=None, id_=None,
+    def __init__(self, name=u"", stock=None, income=None, id_=None,
             purchases=None, fixedprice=None, profit=None):
         self.purchases = purchases or {}
         self.name = name
@@ -68,6 +68,8 @@ class Product(object):
         return sum(x.quantity for x in self.purchases.values())
 
     def value_left(self):
+        if self.stock is None:
+            raise Exception("Stock has not been set")
         return (self.total_purchase() * self.stock) / self.total_quantity()
 
     def add_profit(self, amount):

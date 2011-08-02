@@ -8,7 +8,11 @@ from app.document import inventory, document
 
 
 def browse():
-    products = [(a.id, a.name, a.total_purchase(), a.fixedprice, a.get_fixedprice(1), a.total_quantity(), a.total_quantity() - a.stock) for a in inventory().list_by_name()]
+    products = []
+    for a in inventory().list_by_name():
+        sold = a.total_quantity() - a.stock if a.stock is not None else 0
+        products.append((a.id, a.name, a.total_purchase(), a.fixedprice, a.get_fixedprice(1), a.total_quantity(), sold))
+
     template_response("/page/product/browse.mako",
         products = products,
     )
