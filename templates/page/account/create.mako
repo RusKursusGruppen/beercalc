@@ -12,7 +12,7 @@
             <td><input type="text" name="email" id="email"/>
         </tr>
         <tr>
-            <td><label for="istutor">Er rusvejleder</label></td>
+            <td><label for="istutor">Fritaget for at betale svind</label></td>
             <td><input type="checkbox" name="istutor" value="istutor" id="istutor"/>
         </tr>
         <tr>
