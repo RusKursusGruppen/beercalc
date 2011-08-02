@@ -43,7 +43,7 @@ balance_str = escape(formatcurrency(balance))
     </tr>
     <tr>
         <td>
-            <label for="istutor">Er rusvejleder:</label>
+            <label for="istutor">Fritaget for at betale svind:</label>
         </td>
         <td>
 %if istutor:
