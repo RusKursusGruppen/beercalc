@@ -1,5 +1,4 @@
 <%!
-import app.utils.date as dateutils
 from app.utils.currency import formatcurrency, formatnumber
 %>
 <%inherit file="/main.mako"/>
@@ -40,17 +39,11 @@ from app.utils.currency import formatcurrency, formatnumber
     </thead>
     <tbody>
 %for pname, price, quantity, date, purchase_id in purchases:
-<%
-    date_delta = escape(dateutils.formatdelta(date-dateutils.now()))
-    tz = date.strftime("%z")
-    datetime = escattr(date.strftime("%Y-%m-%dT%H:%M:%S") + "+%s:%s" % (tz[1:3], tz[-2:]))
-    date_str = escattr(date.strftime("%Y-%m-%d %H:%M:%S"))
-%>
         <tr>
             <td>${escape(pname)}</td>
             <td class="money">${escape(formatcurrency(price))}</td>
             <td>${str(quantity)}</td>
-            <td><time datetime=${datetime} title=${date_str}>${date_delta}</time></td>
+            <td>${widget.timedelta(date)}</td>
             <td><a href=${escattr(urlfor("product.purchase_delete", purchase_id = purchase_id, product_id = id))}>[Slet]</a>
         </tr>
 %endfor
