@@ -23,15 +23,73 @@ function preview_update(){
         $("#total_"+pid).text(formatnumber(usage));
     });
 }
+
 function check_form(){
-    if ($("#usage_form .stock").val() == ""){
-        $("#stock_error").text("Du har glemt at indføre en beholdning.").show();
+    var errors = new Array();
+    $("#error ul > li").remove();
+
+    var stock_error = false;
+    $("#usage_form input.stock").each(function(k, v) {
+        n = parseInt($(v).val());
+        if (isNaN(n) || n < 0) {
+            $(v).addClass("error");
+            if (!stock_error) {
+                errors.push("Beholdning skal være et ikke-negativt heltal.");
+                stock_error = true;
+            }
+        }
+        else {
+            $(v).removeClass("error");
+        }
+    });
+
+    var usage_error = false;
+    $("#usage_form input.usage").each(function(k, v) {
+        val = $(v).val();
+        if (val == "")
+            val = "0";
+
+        n = parseInt(val);
+        if (isNaN(n) || n < 0) {
+            $(v).addClass("error");
+            if (!usage_error) {
+                errors.push("Forbrug skal være et ikke-negativt heltal.");
+                usage_error = true;
+            }
+        }
+        else {
+            $(v).removeClass("error");
+        }
+    });
+
+    var profit_error = false;
+    $("#usage_form input.profit").each(function(k, v) {
+        if (!validatenumber($(v).val(), false)) {
+            $(v).addClass("error");
+            if (!profit_error) {
+                errors.push("Profit skal være et gyldigt, ikke-negativt beløb.");
+                profit_error = true;
+            }
+        }
+        else {
+            $(v).removeClass("error");
+        }
+    });
+
+    if (errors.length > 0) {
+        errors.forEach(function(e) {
+            $("#error ul").append($("<li>").text(e));
+        });
+
+        $("#error").show();
         $('html, body').stop().animate({
-            scrollTop: $("#stock_error").offset().top
+            scrollTop: $("#error").offset().top
         }, 500);
         return false;
     }
     return true;
+
+    return false; console.log(errors);
 }
 
 $(document).ready(function(){

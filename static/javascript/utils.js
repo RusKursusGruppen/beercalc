@@ -28,3 +28,12 @@ function formatcurrency(n) {
 
     return formatnumber(n) + "," + fraction + " kr.";
 }
+
+function validatenumber(s, allow_negative) {
+    if (typeof allow_negative == "undefined" || allow_negative) {
+        return /^-?\d(\.?\d)*(,\d{1,2})?$/.test(s);
+    }
+    else {
+        return /^\d(\.?\d)*(,\d{1,2})?$/.test(s);
+    }
+}

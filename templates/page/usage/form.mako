@@ -15,9 +15,13 @@ var account_ids = new Array(${account_ids});
 </script>
 <script type="text/javascript" src="/static/javascript/usage.js"></script>
 
+<section id="error">
+    <h2>Fejl:</h2>
+    <ul></ul>
+</section>
+
 <form id="usage_form" action=${escattr(urlfor("usage.new_form_do"))} method="post">
     <h2>Varebeholdning</h2>
-    <p id="stock_error"></p>
     <table>
         <thead>
             <tr>
@@ -34,7 +38,7 @@ var account_ids = new Array(${account_ids});
                 <td>${escape(name)}:</td>
                 <td><input type="text" class="stock" name=${escattr("stock_" + id)} style="width:4em" tabindex="${str(counter)}" value="" /></td>
 <% counter += 1 %>
-                <td><input type="text" name=${escattr("profit_" + id)} style="width:4em" tabindex="${str(counter)}" value="0"/></td>
+                <td><input type="text" class="profit" name=${escattr("profit_" + id)} style="width:4em" tabindex="${str(counter)}" value="0"/></td>
 <% counter += 1 %>
                 <td class="money" id=${escattr("price_" + id)}></td>
                 <td class="money">${escape(formatcurrency(fixedprice))}</td>
@@ -59,7 +63,7 @@ var account_ids = new Array(${account_ids});
             <tr>
                 <td><a href=${escattr(urlfor("account.edit", id=aid))}>${escape(aname)}</a></td>
 %for pid, pname, fixedprice in products:
-                <td><input type="text" name="usage_${escape(aid)}_${escape(pid)}" value="0" style="width:4em" tabindex=${escattr(str(counter))} /></td>
+                <td><input type="text" class="usage" name="usage_${escape(aid)}_${escape(pid)}" value="0" style="width:4em" tabindex=${escattr(str(counter))} /></td>
 <% counter += 1 %>
 %endfor
                 <td class="money" id=${escattr("preview_" + aid)}></td>

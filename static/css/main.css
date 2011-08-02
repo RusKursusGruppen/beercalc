@@ -77,9 +77,12 @@ html {
     border-top: 3px solid #000;
 }
 
-#stock_error {
+#error {
     color: red;
     display: none;
+}
+input.error {
+    border: 1px solid red;
 }
 
 #nav a {
