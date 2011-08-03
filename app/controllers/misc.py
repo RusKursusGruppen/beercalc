@@ -7,6 +7,14 @@ from app.utils.currency import parsenumber, formatcurrency
 
 import json
 
+def error():
+    template_response("/error/error.mako")
+
+
+def notfound():
+    local.response.status_code = 404
+    template_response("/error/notfound.mako")
+
 
 def cashlog():
     log = ((t.date, t.description, t.amount) for t in document().cash_in_hand.transactions)

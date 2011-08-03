@@ -40,8 +40,8 @@ endpoints = {
     "version.view": app.controllers.version.view,
     "version.rollback": app.controllers.version.rollback,
     "version.export": app.controllers.version.export,
-    "notfound": app.controllers.notfound,
-    "error": app.controllers.error,
+    "notfound": app.controllers.misc.notfound,
+    "error": app.controllers.misc.error,
 }
 
 url_map = werkzeug.routing.Map()

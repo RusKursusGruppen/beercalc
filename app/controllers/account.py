@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from app.utils.misc import template_response, local, urlfor, redirect
 
-from app.controllers import notfound
+from app.controllers.misc import notfound
 from app.model.account import Account
 from app.document import accounts, document
 from app.utils.currency import parsenumber
