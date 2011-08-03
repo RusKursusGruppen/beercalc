@@ -80,6 +80,9 @@ class Product(object):
         missing_income += self.profit.get_balance()
         missing_income -= self.income.get_balance() + self.value_left()
 
+        if missing_income < 0:
+            return 0
+
         return (sold_individual * missing_income) / sold_total
 
     def get_fixedprice(self, count=0):
