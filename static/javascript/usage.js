@@ -64,10 +64,10 @@ function check_form(){
 
     var profit_error = false;
     $("#usage_form input.profit").each(function(k, v) {
-        if (!validatenumber($(v).val(), false)) {
+        if (!validatenumber($(v).val())) {
             $(v).addClass("error");
             if (!profit_error) {
-                errors.push("Profit skal være et gyldigt, ikke-negativt beløb.");
+                errors.push("Profit skal være et gyldigt beløb.");
                 profit_error = true;
             }
         }
