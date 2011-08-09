@@ -29,7 +29,11 @@ var account_ids = new Array(${account_ids});
                 <th>Beholdning:</th>
                 <th>Profit:</th>
                 <th>Pris:</th>
-                <th>Vejlederpris:</th>
+                <th>
+                    <a href=${escattr(urlfor("help.faq")+"#vejlederpris")}>
+                        Vejlederpris:
+                    </a>
+                </th>
             </tr>
         </thead>
         <tbody>

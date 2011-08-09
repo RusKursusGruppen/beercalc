@@ -17,8 +17,11 @@ from app.utils.currency import formatcurrency
             <th>Samlet udgift:</th>
             <th>Enheder indkøbt:</th>
             <th>Enheder solgt:</th>
-            <th>Vejlederpris:</th>
-            <th></th>
+            <th>
+                <a href=${escattr(urlfor("help.faq")+"#vejlederpris")}>
+                    Vejlederpris:
+                </a>
+            </th>
         </tr>
     </thead>
     <tbody>

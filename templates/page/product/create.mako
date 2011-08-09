@@ -8,7 +8,11 @@
             <td><input type="text" name="name" id="name" />
         </tr>
         <tr>
-            <td><label for="fixedprice">Vejlederpris:</label></td>
+            <td>
+                <a href=${escattr(urlfor("help.faq")+"#vejlederpris")}>
+                    Vejlederpris:
+                </a>
+            </td>
             <td><input type="text" name="fixedprice" id="fixedprice" />
         </tr>
     </table>

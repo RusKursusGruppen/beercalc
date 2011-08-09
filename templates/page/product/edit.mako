@@ -11,7 +11,13 @@ from app.utils.currency import formatcurrency, formatnumber
             <td><input name="name" id="name" value=${escattr(name)} /></td>
         </tr>
         <tr>
-            <td><label for="fixedprice">Vejlederpris:</label></td>
+            <td>
+                <label for="fixedprice">
+                    <a href=${escattr(urlfor("help.faq")+"#vejlederpris")}>
+                        Vejlederpris:
+                    </a>
+                </label>
+            </td>
             <td>
 %if fixedprice is None:
                 <input name="fixedprice" id="fixedprice" />

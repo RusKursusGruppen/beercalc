@@ -7,6 +7,7 @@ import app.controllers.product
 import app.controllers.index
 import app.controllers.misc
 import app.controllers.version
+import app.controllers.help
 
 endpoints = {
     "index.index": app.controllers.index.index,
@@ -40,6 +41,7 @@ endpoints = {
     "version.view": app.controllers.version.view,
     "version.rollback": app.controllers.version.rollback,
     "version.export": app.controllers.version.export,
+    "help.faq": app.controllers.help.faq,
     "notfound": app.controllers.misc.notfound,
     "error": app.controllers.misc.error,
 }
@@ -77,6 +79,7 @@ for method, path, endpoint in [
         ("GET", "/transfer", "misc.transfer"),
         ("POST", "/import", "misc.import_file"),
         ("POST", "/change_title", "misc.enter_title_do"),
+        ("GET", "/faq", "help.faq"),
     ]:
     rule = werkzeug.routing.Rule(path, methods=[method], endpoint=endpoint)
     url_map.add(rule)

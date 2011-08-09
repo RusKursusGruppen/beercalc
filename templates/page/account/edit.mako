@@ -43,7 +43,12 @@ balance_str = escape(formatcurrency(balance))
     </tr>
     <tr>
         <td>
-            <label for="istutor">Fritaget for at betale svind:</label>
+            <label for="istutor">
+                Betaler
+                <a href=${escattr(urlfor("help.faq") + "#vejlederpris")}>
+                    vejlederpris:
+                </a>
+            </label>
         </td>
         <td>
 %if istutor:
