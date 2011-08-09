@@ -26,7 +26,7 @@ function formatcurrency(n) {
     }
     n = Math.floor(n / 100);
 
-    return formatnumber(n) + "," + fraction + " kr.";
+    return prefix + formatnumber(n) + "," + fraction + " kr.";
 }
 
 function validatenumber(s, allow_negative) {
