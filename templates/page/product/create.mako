@@ -1,5 +1,11 @@
 <%inherit file="/main.mako"/>
 <h1>Nyt produkt</h1>
+<%
+    self.breadcrumbs = (
+        (urlfor("product.browse"), u"Produkter"),
+        (urlfor("product.create_form"), u"Tilføj"),
+    )
+%>
 
 <form method="post" action=${escattr(urlfor("product.create_do"))}>
     <table>

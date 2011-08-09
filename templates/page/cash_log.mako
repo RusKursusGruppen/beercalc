@@ -3,6 +3,9 @@
     from app.utils.currency import formatcurrency
 %>
 <%
+    self.breadcrumbs = (
+        (urlfor("misc.cashlog"), u"Kassebeholdning"),
+    )
     runningsum = 0
     balance_str = escape(formatcurrency(balance))
 %>

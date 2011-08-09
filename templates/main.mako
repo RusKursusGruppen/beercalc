@@ -11,6 +11,9 @@
         ("misc.transfer", u"Import/Eksport", "import"),
     )
 %>
+<%
+    content = capture(next.body)
+%>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Ølregnskab - ${escape(widget.doc_title())}</title>
@@ -33,8 +36,14 @@
 </nav>
 
 <div class="yui3-u-4-5" id="content_container">
+%for n, (url, title) in enumerate(((urlfor("index.index"), u"Forside"),) + next.breadcrumbs):
+%if n > 0:
+→
+%endif
+    <a href=${escattr(url)}>${escape(title)}</a>
+%endfor
 <section id="content">
-    ${next.body()}
+    ${content}
 </section>
 </div>
 </div>

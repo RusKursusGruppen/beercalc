@@ -9,3 +9,4 @@ def doc_title():
 
 def timedelta(date):
     return app.utils.misc.template_render('/widget/timedelta.mako', date=date)
+

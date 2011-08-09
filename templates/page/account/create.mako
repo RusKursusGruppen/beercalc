@@ -1,4 +1,13 @@
 <%inherit file="/main.mako"/>
+<%!
+    from app.utils.misc import urlfor
+%>
+<%
+    self.breadcrumbs = (
+        (urlfor("account.browse"), u"Konti"),
+        (urlfor("account.create_form"), u"Ny konto"),
+    )
+%>
 <h1>Opret konto</h1>
 
 <form action=${escattr(urlfor("account.create_do"))} method="post">

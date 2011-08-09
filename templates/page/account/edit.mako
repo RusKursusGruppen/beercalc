@@ -1,13 +1,16 @@
-<%!
-from app.utils.currency import formatcurrency
-%>
 <%inherit file="/main.mako"/>
-
+<%!
+    from app.utils.currency import formatcurrency
+%>
 <%
-runningsum = 0
-email_val = escattr(u"mailto:" + email)
-email_str = escape(email)
-balance_str = escape(formatcurrency(balance))
+    self.breadcrumbs = (
+        (urlfor("account.browse"), u"Konti"),
+        (urlfor("account.edit", id=id), name),
+    )
+    runningsum = 0
+    email_val = escattr(u"mailto:" + email)
+    email_str = escape(email)
+    balance_str = escape(formatcurrency(balance))
 %>
 
 <h1>

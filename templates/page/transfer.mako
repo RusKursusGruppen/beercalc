@@ -1,4 +1,9 @@
 <%inherit file="/main.mako" />
+<%
+    self.breadcrumbs = (
+        (urlfor("misc.transfer"), u"Import/Export"),
+    )
+%>
 <h1>Import/Eksport</h1>
 <h3>Eksportér</h3>
 <p>

@@ -1,7 +1,12 @@
 <%!
-from app.utils.currency import formatcurrency
+    from app.utils.currency import formatcurrency
 %>
 <%inherit file="/main.mako"/>
+<%
+    self.breadcrumbs = (
+        (urlfor("product.browse"), u"Produkter"),
+    )
+%>
 <h1>Produkter</h1>
 
 <nav>

@@ -1,5 +1,10 @@
 <%inherit file="/main.mako"/>
-
+<%
+    self.breadcrumbs = (
+        (urlfor("version.browse"), u"Ældre versioner"),
+        (urlfor("version.view", filename=filename), filename),
+    )
+%>
 <h1>Version: ${escape(filename)}</h1>
 
 <dl>

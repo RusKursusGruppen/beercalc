@@ -1,4 +1,10 @@
 <%inherit file="/main.mako"/>
+<%
+    self.breadcrumbs = (
+        (urlfor("account.browse"), u"Konti"),
+        (urlfor("account.import"), u"Import"),
+    )
+%>
 
 <h1>Kontoimport</h1>
 <p>

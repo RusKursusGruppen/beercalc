@@ -1,5 +1,9 @@
 <%inherit file="/main.mako"/>
-
+<%
+    self.breadcrumbs = (
+        (urlfor("version.browse"), u"Ældre versioner"),
+    )
+%>
 <h1>Ældre versioner</h1>
 
 <table>

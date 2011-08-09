@@ -1,4 +1,9 @@
 <%inherit file="/main.mako"/>
+<%
+    self.breadcrumbs = (
+        (urlfor("help.faq"), u"FAQ"),
+    )
+%>
 <h1>FAQ</h1>
 <h2 id="pricing">Prissætning</h2>
 <h3 id="vejlederpris">Vejlederpris</h3>

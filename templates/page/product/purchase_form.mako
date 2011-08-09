@@ -1,6 +1,13 @@
 <%!
 from app.utils.currency import formatcurrency, formatnumber
 %>
+<%
+    self.breadcrumbs = (
+        (urlfor("product.browse"), u"Produkter"),
+        (urlfor("product.edit", product_id=product_id), product_name),
+        (urlfor("product.purchase", product_id=product_id), u"Tilføj Indkøb"),
+    )
+%>
 <%inherit file="/main.mako"/>
 
 <h1>Nyt indkøb til '${escape(product_name)}'</h1>

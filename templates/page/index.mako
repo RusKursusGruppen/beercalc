@@ -1,6 +1,10 @@
 <%inherit file="/main.mako"/>
 <%!
     from app.utils.currency import formatcurrency
+    
+%>
+<%
+    self.breadcrumbs = ()
 %>
 <h1>Velkommen til beercalc</h1>
 
