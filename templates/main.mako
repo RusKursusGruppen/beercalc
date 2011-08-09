@@ -36,12 +36,14 @@
 </nav>
 
 <div class="yui3-u-4-5" id="content_container">
+<nav class="yui3-u-1" id="breadcrumbs">
 %for n, (url, title) in enumerate(((urlfor("index.index"), u"Forside"),) + next.breadcrumbs):
 %if n > 0:
 →
 %endif
     <a href=${escattr(url)}>${escape(title)}</a>
 %endfor
+</nav>
 <section id="content">
     ${content}
 </section>
