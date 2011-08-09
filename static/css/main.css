@@ -120,3 +120,13 @@ input.error {
 #nav_import a {
     background-image: url(/static/images/database_refresh.png);
 }
+
+#statustable {
+    width:100%;
+}
+#statustable td:nth-child(1) {
+    white-space: nowrap;
+}
+#statustable td:nth-child(2) {
+    width:100%;
+}

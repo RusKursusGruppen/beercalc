@@ -10,7 +10,7 @@
 
 <h3>Status</h3>
 
-<table>
+<table id="statustable">
     <tr>
         <td>Kassebeholdning</td>
         <td>${escape(formatcurrency(cash_in_hand))}</td>
