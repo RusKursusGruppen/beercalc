@@ -9,6 +9,7 @@
         ("misc.cashlog", u"Kasse", "cash"),
         ("version.browse", u"Ældre versioner", "versions"),
         ("misc.transfer", u"Import/Eksport", "import"),
+        ("help.faq", u"FAQ", "faq"),
     )
 %>
 <%
