@@ -34,6 +34,7 @@ class Session(object):
     def new_session(self):
         self.id = uuid4().hex
         self.data = dict()
+        sessions[self.id] = self
 
     def get(self, *args, **kwargs):
         self.init()
